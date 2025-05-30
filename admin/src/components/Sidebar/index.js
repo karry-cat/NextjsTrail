@@ -1,13 +1,14 @@
 import Link from "next/link";
 import Image from "next/image";
+import {HomeIcon, ShoppingBagIcon, SwatchIcon, UsersIcon} from "@/components/icons";
 
 export default function Sidebar () {
 
     const menuItems = [
-        {text:"Dashboard", url:"/"},
-        {text:"Users", url:"/users"},
-        {text:"Product Type", url:"/product-type"},
-        {text:"Products", url:"/products"}
+        {text:"Dashboard", url:"/", icon: <HomeIcon/>},
+        {text:"Users", url:"/users", icon: <UsersIcon/>},
+        {text:"Product Type", url:"/product-type", icon: <SwatchIcon/>},
+        {text:"Products", url:"/products", icon: <ShoppingBagIcon/>}
     ]
 
     return (
@@ -21,7 +22,10 @@ export default function Sidebar () {
                         return (
                             <li>
                                 <Link href={menuItem.url}>
-                                    <div className="sidebar-list-item">{menuItem.text}</div>
+                                    <div className="sidebar-list-item">
+                                        <span className="mx-2">{menuItem.icon}</span>
+                                        {menuItem.text}
+                                    </div>
                                 </Link>
                             </li>
                         )
