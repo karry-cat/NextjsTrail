@@ -1,4 +1,6 @@
 import Label from "@/components/ui/Label";
+import {Button} from "@/components/ui/Button";
+import {Input} from "@/components/ui/Input";
 
 export default function () {
     return (<div>
@@ -7,12 +9,8 @@ export default function () {
         <form className="grid gap-x-6 gap-y-10 mt-10 grid-cols-2 px-2">
             <div className="grid gap-2">
 
-                <Label required={true} className="font-bold">Username</Label>
-                <input
-                    type="text"
-                    placeholder="Enter Username"
-                    className="custom-input"
-                />
+                <Label required={true}>Username</Label>
+                <Input placeholder="Enter Username"/>
             </div>
             <div className="grid gap-2">
                 <Label required={true}>User Type</Label>
@@ -25,24 +23,16 @@ export default function () {
             </div>
             <div className="grid gap-2">
                 <Label required={true}>Password</Label>
-                <input
-                    type="text"
-                    placeholder="Example@123"
-                    className="custom-input"
-                />
+                <Input placeholder="Example@123"/>
             </div>
             <div className="grid gap-2">
                 <Label required={true}>Confirm Password</Label>
-                <input
-                    type="text"
-                    placeholder="Re-enter Password"
-                    className="custom-input"
-                />
+                <Input placeholder="Re-enter Password"/>
             </div>
 
-            <button className="custom-submit-btn">
+            <Button className="w-52 col-span-2 mt-2">
                 Submit
-            </button>
+            </Button>
         </form>
     </div>);
 }
