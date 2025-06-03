@@ -14,12 +14,21 @@
     .custom-primary-btn {
         @apply p-3 m-1 rounded-md bg-blue-500 text-gray-50 hover:bg-blue-200 hover:text-blue-900 hover:shadow-md
     }
-    .cumtom-table {
+    .custom-table {
         @apply overflow-y-auto w-10/12 mx-auto
     }
-    .cumtom-table th {
+    .custom-table th {
         @apply p-3
     }
+
+    .custom-table th, .custom-table td {
+        @apply px-6 py-2 text-start;
+    }
+
+    .custom-table tr {
+        @apply border-b border-gray-300;
+    }
+
     .custom-input {
         @apply h-12 w-full border text-black rounded-md p-3 text-base
         placeholder:text-gray-400 focus-visible:outline-none focus-visible:ring-[2px]

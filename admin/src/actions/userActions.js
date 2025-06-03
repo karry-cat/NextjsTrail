@@ -37,3 +37,8 @@ export const createUser = async (formData)=> {
     revalidatePath("/users","page");
     redirect("/users");
 }
+
+export const getUsers = async ()=> {
+    const users = await db.adminUser.findMany();
+    return users;
+}
