@@ -1,3 +1,4 @@
+import Label from "@/components/ui/Label";
 
 export default function () {
     return (<div>
@@ -5,9 +6,8 @@ export default function () {
         {/*<hr className="my-5 "/>*/}
         <form className="grid gap-x-6 gap-y-10 mt-10 grid-cols-2 px-2">
             <div className="grid gap-2">
-                <div className="text-sm lg:text-base h-fit">
-                    <label>Username</label>
-                </div>
+
+                <Label required={true} className="font-bold">Username</Label>
                 <input
                     type="text"
                     placeholder="Enter Username"
@@ -15,9 +15,7 @@ export default function () {
                 />
             </div>
             <div className="grid gap-2">
-                <div className="text-sm lg:text-base h-fit">
-                    <label>User Type</label>
-                </div>
+                <Label required={true}>User Type</Label>
                 <select className="custom-input appearance-none cursor-pointer">
                     <option value="">Select User Type</option>
                     <option value="Super Admin">Super Admin</option>
@@ -26,9 +24,7 @@ export default function () {
                 </select>
             </div>
             <div className="grid gap-2">
-                <div className="text-sm lg:text-base h-fit">
-                    <label>Password</label>
-                </div>
+                <Label required={true}>Password</Label>
                 <input
                     type="text"
                     placeholder="Example@123"
@@ -36,9 +32,7 @@ export default function () {
                 />
             </div>
             <div className="grid gap-2">
-                <div className="text-sm lg:text-base h-fit">
-                    <label>Confirm Password</label>
-                </div>
+                <Label required={true}>Confirm Password</Label>
                 <input
                     type="text"
                     placeholder="Re-enter Password"
