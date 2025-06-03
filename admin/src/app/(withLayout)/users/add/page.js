@@ -1,9 +1,9 @@
 import AddUser from "@/screens/users/add";
 
-export default function () {
+export default async function ({searchParams}) {
     return (
         <>
-            <AddUser></AddUser>
+            <AddUser searchParams={await searchParams}></AddUser>
         </>
     );
 }
