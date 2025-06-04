@@ -1,8 +1,11 @@
 import Label from "@/components/ui/Label";
 import {Input} from "@/components/ui/Input";
 import {Button} from "@/components/ui/Button";
+import {getUniqueUser} from "@/actions/userActions";
 
 const EditUser = async ({params}) => {
+    const id = parseInt(params.userId);
+    const userData = await getUniqueUser(id);
     return (
         <div>
             <h1 className="font-semibold text-2xl p-2">Edit User</h1>
@@ -17,11 +20,11 @@ const EditUser = async ({params}) => {
                 }
                 <div className="grid gap-2">
                     <Label required={true}>Username</Label>
-                    <Input placeholder="Enter Username" name="userName"/>
+                    <Input placeholder="Enter Username" name="userName" defaultValue={userData.userName}/>
                 </div>
                 <div className="grid gap-2">
                     <Label required={true}>User Type</Label>
-                    <select className="custom-input appearance-none cursor-pointer" name="userType">
+                    <select className="custom-input appearance-none cursor-pointer" name="userType"  defaultValue={userData.userType}>
                         <option value="">Select User Type</option>
                         <option value="Super Admin">Super Admin</option>
                         <option value="Admin">Admin</option>
@@ -29,11 +32,11 @@ const EditUser = async ({params}) => {
                     </select>
                 </div>
                 <div className="grid gap-2">
-                    <Label required={true}>Password</Label>
+                    <Label>Reset Password</Label>
                     <Input placeholder="Example@123" name="password"/>
                 </div>
                 <div className="grid gap-2">
-                    <Label required={true}>Confirm Password</Label>
+                    <Label>Confirm Password</Label>
                     <Input placeholder="Re-enter Password" name="confirmPassword"/>
                 </div>
 

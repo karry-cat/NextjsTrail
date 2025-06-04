@@ -1,9 +1,9 @@
-import { db } from"@/lib/db";
+import {db} from "@/lib/db";
 import {revalidatePath} from "next/cache";
 import {redirect} from "next/navigation";
 import bcrypt from "bcrypt";
 
-export const createUser = async (formData)=> {
+export const createUser = async (formData) => {
     "use server";
 
     const data = {
@@ -14,7 +14,7 @@ export const createUser = async (formData)=> {
     }
 
     const existingUser = await db.adminUser.findUnique({
-        where:{
+        where: {
             userName: data.userName
         }
     });
@@ -27,18 +27,27 @@ export const createUser = async (formData)=> {
     const hashedPassword = await bcrypt.hash(formData.get("password"), salt)
 
     await db.adminUser.create({
-        data:{
-            userName : data.userName,
-            userType : data.userType,
-            password : hashedPassword
+        data: {
+            userName: data.userName,
+            userType: data.userType,
+            password: hashedPassword
         }
     })
 
-    revalidatePath("/users","page");
+    revalidatePath("/users", "page");
     redirect("/users");
 }
 
-export const getUsers = async ()=> {
+export const getUsers = async () => {
     const users = await db.adminUser.findMany();
     return users;
+}
+
+export const getUniqueUser = async (userId) => {
+    const user = await db.adminUser.findUnique({
+        where: {
+            id: userId
+        }
+    })
+    return user;
 }
