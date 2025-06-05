@@ -1,9 +1,10 @@
 import UsersScreen from "@/screens/users";
+import {getUsers} from "@/actions/userActions";
 
-export default function UsersPage() {
+export default async function UsersPage() {
     return (
         <>
-            <UsersScreen></UsersScreen>
+            <UsersScreen users={await getUsers()}></UsersScreen>
         </>
     );
 }

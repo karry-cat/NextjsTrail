@@ -80,3 +80,12 @@ export const updateUser = async (formData) => {
     redirect("/users");
 
 }
+
+export async function deleteUser(userId) {
+    await db.adminUser.delete({
+        where:{
+            id: userId
+        }
+    });
+    revalidatePath("/users","page");
+}

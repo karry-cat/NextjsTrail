@@ -1,11 +1,15 @@
+"use client"
 import Link from "next/link";
-import {getUsers} from "@/actions/userActions";
+import {deleteUser} from "@/actions/userActions";
 import {Button} from "@/components/ui/Button";
 import {DeleteIcon, EditIcon} from "@/components/icons";
 
-export default async function UsersScreen() {
-    const users = await getUsers();
-    console.log(users);
+export default function UsersScreen({users}) {
+    // console.log(users);
+
+    const handleDelete = async (selectedId) => {
+        await deleteUser(selectedId);
+    }
 
     return (
         <div>
@@ -31,15 +35,16 @@ export default async function UsersScreen() {
 
                     <tbody className="text-gray-700 font-medium text-lg text-center">
                     {
-                        users.map((user, key) => (
+                        users.map((user, index) => (
                             <tr key={user.id}>
-                                <td>{key + 1}</td>
+                                <td>{index + 1}</td>
                                 <td>{user.userName}</td>
                                 <td className="flex items-center gap-x-3">
                                     <Link href={`/users/edit/${user.id}`} className="w-fit">
                                         <EditIcon></EditIcon>
                                     </Link>
-                                    <Button className="bg-transparent p-0 px-2 border-none text-red-500">
+                                    <Button className="bg-transparent p-0 px-2 border-none text-red-500"
+                                            onClick={() => handleDelete(user.id)}>
                                         <DeleteIcon></DeleteIcon>
                                     </Button>
                                 </td>
