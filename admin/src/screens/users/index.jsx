@@ -4,9 +4,12 @@ import {deleteUser} from "@/actions/userActions";
 import {Button} from "@/components/ui/Button";
 import {DeleteIcon, EditIcon} from "@/components/icons";
 import DeleteConfirmationModal from "@/components/ui/DeleteConfirmationModal";
+import {useState} from "react";
 
 export default function UsersScreen({users}) {
     // console.log(users);
+
+    const [isDeleteModalOpen,setIsDeleteModal0pen] = useState(false)
 
     const handleDelete = async (selectedId) => {
         await deleteUser(selectedId);
@@ -45,7 +48,7 @@ export default function UsersScreen({users}) {
                                         <EditIcon></EditIcon>
                                     </Link>
                                     <Button className="bg-transparent p-0 px-2 border-none text-red-500"
-                                            onClick={() => handleDelete(user.id)}>
+                                            onClick={() => setIsDeleteModal0pen(true)}>
                                         <DeleteIcon></DeleteIcon>
                                     </Button>
                                 </td>
@@ -55,7 +58,9 @@ export default function UsersScreen({users}) {
                     }
                     </tbody>
                 </table>
-                <DeleteConfirmationModal/>
+                { isDeleteModalOpen &&
+                    <DeleteConfirmationModal
+                        setIsOpen={setIsDeleteModal0pen} onCancel={()=>setIsDeleteModal0pen(false)} /> }
             </div>
         </div>
     );
