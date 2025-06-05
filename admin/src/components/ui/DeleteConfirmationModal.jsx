@@ -1,7 +1,7 @@
 import {CloseIcon, DeleteIcon} from "@/components/icons";
 import {Button} from "@/components/ui/Button";
 
-const DeleteConfirmationModal = ({setIsOpen, onCancel})=>{
+const DeleteConfirmationModal = ({setIsOpen, onCancel, handleComfirm})=>{
     const closeModal = () => {
         setIsOpen(false)
     }
@@ -25,7 +25,7 @@ const DeleteConfirmationModal = ({setIsOpen, onCancel})=>{
                             className="bg-transparent text-black border border-gray-600" onClick={onCancel}>
                             Cancel
                         </Button>
-                        <Button type="submit">
+                        <Button type="submit" onClick={handleComfirm}>
                             Confirm
                         </Button>
                     </div>

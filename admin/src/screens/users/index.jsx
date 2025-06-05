@@ -9,10 +9,13 @@ import {useState} from "react";
 export default function UsersScreen({users}) {
     // console.log(users);
 
-    const [isDeleteModalOpen,setIsDeleteModal0pen] = useState(false)
+    const [isDeleteModalOpen, setIsDeleteModal0pen] = useState(false)
+    const [selectedId, setSelectedId] = useState()
 
-    const handleDelete = async (selectedId) => {
+    const handleDelete = async () => {
         await deleteUser(selectedId);
+        setIsDeleteModal0pen(false)
+        setSelectedId(null)
     }
 
     return (
@@ -48,7 +51,10 @@ export default function UsersScreen({users}) {
                                         <EditIcon></EditIcon>
                                     </Link>
                                     <Button className="bg-transparent p-0 px-2 border-none text-red-500"
-                                            onClick={() => setIsDeleteModal0pen(true)}>
+                                            onClick={() => {
+                                                setIsDeleteModal0pen(true);
+                                                setSelectedId(user.id);
+                                            }}>
                                         <DeleteIcon></DeleteIcon>
                                     </Button>
                                 </td>
@@ -58,9 +64,12 @@ export default function UsersScreen({users}) {
                     }
                     </tbody>
                 </table>
-                { isDeleteModalOpen &&
+                {isDeleteModalOpen &&
                     <DeleteConfirmationModal
-                        setIsOpen={setIsDeleteModal0pen} onCancel={()=>setIsDeleteModal0pen(false)} /> }
+                        setIsOpen={setIsDeleteModal0pen}
+                        onCancel={() => setIsDeleteModal0pen(false)}
+                        handleComfirm={handleDelete}
+                    />}
             </div>
         </div>
     );
