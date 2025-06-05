@@ -3,6 +3,7 @@ import Link from "next/link";
 import {deleteUser} from "@/actions/userActions";
 import {Button} from "@/components/ui/Button";
 import {DeleteIcon, EditIcon} from "@/components/icons";
+import DeleteConfirmationModal from "@/components/ui/DeleteConfirmationModal";
 
 export default function UsersScreen({users}) {
     // console.log(users);
@@ -54,6 +55,7 @@ export default function UsersScreen({users}) {
                     }
                     </tbody>
                 </table>
+                <DeleteConfirmationModal/>
             </div>
         </div>
     );

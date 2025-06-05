@@ -41,4 +41,9 @@
         lg:leading-6 bg-blue-700 hover:shadow-xl disabled:pointer-events-none
         disabled:bg-gray-50 disabled:text-black/50 px-5 py-3;
     }
+
+    .close-icon-button {
+        @apply text-gray-400 absolute top-2.5 right-2.5 bg-transparent rounded-lg text-base p-1.5
+        ml-auto inline-flex items-center hover:bg-gray-200 hover:text-gray-900;
+    }
 }
