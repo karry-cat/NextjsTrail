@@ -3,7 +3,6 @@
 import {db} from "@/lib/db";
 import {revalidatePath} from "next/cache";
 import {redirect} from "next/navigation";
-import bcrypt from "bcrypt";
 
 export const createProductType = async (formData) => {
     const data = {
@@ -31,10 +30,10 @@ export const createProductType = async (formData) => {
     redirect("/product-type");
 }
 
-// export const getUsers = async () => {
-//     const users = await db.adminUser.findMany();
-//     return users;
-// }
+export const getProductTypes = async () => {
+    const productTypes = await db.productType.findMany();
+    return productTypes;
+}
 //
 // export const getUniqueUser = async (userId) => {
 //     const user = await db.adminUser.findUnique({

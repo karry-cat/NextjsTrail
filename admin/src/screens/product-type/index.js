@@ -7,14 +7,9 @@ import DeleteConfirmationModal from "@/components/ui/DeleteConfirmationModal";
 import {useState} from "react";
 import {deleteUser} from "@/actions/userActions";
 
-const ProductTypeScreen = () => {
+const ProductTypeScreen = ({productTypes}) => {
     const [isDeleteModalOpen, setIsDeleteModal0pen] = useState(false)
     const [selectedId, setSelectedId] = useState()
-
-    const productTypes = [
-        {id: 1, name:"Kid's Clothing"},
-        {id: 2, name:"Men's Clothing"}
-    ]
 
     const handleDelete = async () => {
         await deleteUser(selectedId);

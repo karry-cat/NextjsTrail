@@ -1,9 +1,10 @@
 import ProductTypeScreen from "@/screens/product-type";
+import {getProductTypes} from "@/actions/productTypeActions";
 
-export default function productTypeManagement() {
+export default async function productTypeManagement() {
     return (
         <>
-            <ProductTypeScreen/>
+            <ProductTypeScreen productTypes={await getProductTypes()}/>
         </>
     );
 }
