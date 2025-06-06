@@ -1,6 +1,7 @@
 import Label from "@/components/ui/Label";
 import {Button} from "@/components/ui/Button";
 import {Input} from "@/components/ui/Input";
+import {createProductType} from "@/actions/productTypeActions";
 
 export default function AddProductType({searchParams}) {
     const {errorMessage} = searchParams;
@@ -8,7 +9,7 @@ export default function AddProductType({searchParams}) {
         <div>
             <h1 className="font-semibold text-2xl p-2">Add Product Type</h1>
             {/*<hr className="my-5 "/>*/}
-            <form className="grid gap-x-6 gap-y-10 mt-10 grid-cols-2 px-2">
+            <form className="grid gap-x-6 gap-y-10 mt-10 grid-cols-2 px-2" action={createProductType}>
                 {
                     errorMessage && (
                         <div className="col-span-2 border border-red-500 rounded-xl px-5 py-3 bg-red-50 w-fit">
