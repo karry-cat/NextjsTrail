@@ -5,14 +5,14 @@ import {DeleteIcon, EditIcon} from "@/components/icons";
 import {Button} from "@/components/ui/Button";
 import DeleteConfirmationModal from "@/components/ui/DeleteConfirmationModal";
 import {useState} from "react";
-import {deleteUser} from "@/actions/userActions";
+import {deleteProductType} from "@/actions/productTypeActions";
 
 const ProductTypeScreen = ({productTypes}) => {
     const [isDeleteModalOpen, setIsDeleteModal0pen] = useState(false)
     const [selectedId, setSelectedId] = useState()
 
     const handleDelete = async () => {
-        await deleteUser(selectedId);
+        await deleteProductType(selectedId);
         setIsDeleteModal0pen(false)
         setSelectedId(null)
     }

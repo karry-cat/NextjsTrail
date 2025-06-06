@@ -62,12 +62,12 @@ export const updateProductType = async (formData) => {
     redirect("/product-type");
 
 }
-//
-// export async function deleteUser(userId) {
-//     await db.adminUser.delete({
-//         where:{
-//             id: userId
-//         }
-//     });
-//     revalidatePath("/users","page");
-// }
+
+export async function deleteProductType(productTypeId) {
+    await db.productType.delete({
+        where:{
+            id: productTypeId
+        }
+    });
+    revalidatePath("/product-type","page");
+}
