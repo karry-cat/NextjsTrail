@@ -6,6 +6,7 @@ import {Button} from "@/components/ui/Button";
 import DeleteConfirmationModal from "@/components/ui/DeleteConfirmationModal";
 import {useState} from "react";
 import {deleteProductType} from "@/actions/productTypeActions";
+import Image from "next/image";
 
 const ProductsScreen = ({productTypes}) => {
     const [isDeleteModalOpen, setIsDeleteModal0pen] = useState(false)
@@ -47,23 +48,39 @@ const ProductsScreen = ({productTypes}) => {
                     {
                         productTypes.map((productType, index) => (
                             <tr key={productType.id}>
-                                <td>{index + 1}</td>
+                                <td className="grid grid-cols-[auto_1fr] gap-3">
+                                    <Image
+                                        src="/next.svg"
+                                        alt="Product Image"
+                                        width={0}
+                                        height={0}
+                                        sizes="100vw"
+                                        className="w-20 h-20"/>
+                                    <div className="flex flex-col self-center">
+                                        <span>Product Name</span>
+                                        <span className="text-sm text-gray-500 truncate max-w-52">
+                                            This is the Product Description with truncate.
+                                        </span>
+                                    </div>
+                                </td>
                                 <td>{productType.name}</td>
                                 <td>{productType.name}</td>
                                 <td>{productType.name}</td>
                                 <td>{productType.name}</td>
-                                <td>{productType.name}</td>
-                                <td className="flex items-center gap-x-3">
-                                    <Link href={`/products/edit/${productType.id}`} className="w-fit">
-                                        <EditIcon></EditIcon>
-                                    </Link>
-                                    <Button className="bg-transparent p-0 px-2 border-none text-red-500"
-                                            onClick={() => {
-                                                setIsDeleteModal0pen(true);
-                                                setSelectedId(productType.id);
-                                            }}>
-                                        <DeleteIcon></DeleteIcon>
-                                    </Button>
+                                <td className="text-green-500">{productType.name}</td>
+                                <td>
+                                    <div className="flex self-center gap-x-3">
+                                        <Link href={`/products/edit/${productType.id}`} className="w-fit">
+                                            <EditIcon></EditIcon>
+                                        </Link>
+                                        <Button className="bg-transparent p-0 px-2 border-none text-red-500"
+                                                onClick={() => {
+                                                    setIsDeleteModal0pen(true);
+                                                    setSelectedId(productType.id);
+                                                }}>
+                                            <DeleteIcon></DeleteIcon>
+                                        </Button>
+                                    </div>
                                 </td>
                             </tr>
                         ))
