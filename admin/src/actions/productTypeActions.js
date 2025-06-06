@@ -34,44 +34,34 @@ export const getProductTypes = async () => {
     const productTypes = await db.productType.findMany();
     return productTypes;
 }
-//
-// export const getUniqueUser = async (userId) => {
-//     const user = await db.adminUser.findUnique({
-//         where: {
-//             id: userId
-//         }
-//     })
-//     return user;
-// }
-//
-// export const updateUser = async (formData) => {
-//     const data = {
-//         userName: formData.get("userName"),
-//         userType: formData.get("userType"),
-//         password: formData.get("password"),
-//         confirmPassword: formData.get("confirmPassword")
-//     };
-//     if (data.password) {
-//         const salt = bcrypt.genSaltSync(5);
-//         const hashedPassword = await bcrypt.hash(formData.get("password"), salt);
-//     }
-//
-//     await db.adminUser.update({
-//         where: {
-//             id: parseInt(formData.get("id"))
-//         },
-//         data: {
-//             userType: data.userType,
-//             userName: data.userName,
-//             // ...(data.password && {hashedPassword})
-//             ...(data.password && {password: hashedPassword})
-//         }
-//     });
-//
-//     revalidatePath("/users", "page");
-//     redirect("/users");
-//
-// }
+
+export const getUniqueProductType = async (productTypeId) => {
+    const productType = await db.productType.findUnique({
+        where: {
+            id: productTypeId
+        }
+    })
+    return productType;
+}
+
+export const updateProductType = async (formData) => {
+    const data = {
+        name: formData.get("name"),
+    };
+
+    await db.productType.update({
+        where: {
+            id: parseInt(formData.get("id"))
+        },
+        data: {
+            name: data.name,
+        }
+    });
+
+    revalidatePath("/product-type", "page");
+    redirect("/product-type");
+
+}
 //
 // export async function deleteUser(userId) {
 //     await db.adminUser.delete({
