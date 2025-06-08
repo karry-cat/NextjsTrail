@@ -2,6 +2,7 @@ import Label from "@/components/ui/Label";
 import {Button} from "@/components/ui/Button";
 import {Input} from "@/components/ui/Input";
 import {createUser} from "@/actions/userActions";
+import Switch from "@/components/ui/Switch";
 
 export default function AddProducts({searchParams}) {
     console.log(searchParams)
@@ -57,7 +58,7 @@ export default function AddProducts({searchParams}) {
                 {/*<div className="grid gap-2">*/}
                 <div className="grid gap-2">
                     <Label required={true}>Product Status</Label>
-                    <Input className="w-auto" type="checkbox" name="isActive"/>
+                    <Switch name="isActive"/>
                 </div>
                 <div className="grid col-span-2 gap-2">
                     <Label required={true}>Description</Label>
