@@ -30,6 +30,44 @@ export default function AddProducts({searchParams}) {
                         <option value="Men's Clothing">Men's Clothing</option>
                     </select>
                 </div>
+                <div className="grid gap-2">
+                    <Label required={true}>MRP</Label>
+                    <Input placeholder="Enter MRP" name="mrp"/>
+                </div>
+                <div className="grid gap-2">
+                    <Label required={true}>Selling Price</Label>
+                    <Input type="number" placeholder="Enter Selling Price" name="sellPrice"/>
+                </div>
+                <div className="grid gap-2">
+                    <Label required={true}>Image</Label>
+                    <Input type="file" name="image"/>
+                </div>
+                <div className="grid gap-2">
+                    <Label required={true}>Stock of Small Size</Label>
+                    <Input type="number" placeholder="Enter Stock of Small Size" name="smallsize"/>
+                </div>
+                <div className="grid gap-2">
+                    <Label required={true}>Stock of Medium Size</Label>
+                    <Input type="number" placeholder="Stock of Medium Size" name="mediumsize"/>
+                </div>
+                <div className="grid gap-2">
+                    <Label required={true}>Stock of Large Size</Label>
+                    <Input type="number" placeholder="Stock of Large Size" name="largeSize"/>
+                </div>
+                {/*<div className="grid gap-2">*/}
+                <div className="grid gap-2">
+                    <Label required={true}>Product Status</Label>
+                    <Input className="w-auto" type="checkbox" name="isActive"/>
+                </div>
+                <div className="grid col-span-2 gap-2">
+                    <Label required={true}>Description</Label>
+                    <textarea
+                        className="custom-input h-auto"
+                        name="description"
+                        rows={5}
+                        placeholder="Enter Product Description"
+                    />
+                </div>
 
                 <Button className="w-52 col-span-2 mt-2">
                     Submit
