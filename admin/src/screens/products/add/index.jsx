@@ -1,8 +1,10 @@
+'use client'
 import Label from "@/components/ui/Label";
 import {Button} from "@/components/ui/Button";
 import {Input} from "@/components/ui/Input";
 import {createUser} from "@/actions/userActions";
 import Switch from "@/components/ui/Switch";
+import CustomFileInput from "@/components/ui/CustomFileInput";
 
 export default function AddProducts({searchParams}) {
     console.log(searchParams)
@@ -41,7 +43,7 @@ export default function AddProducts({searchParams}) {
                 </div>
                 <div className="grid gap-2">
                     <Label required={true}>Image</Label>
-                    <Input type="file" name="image"/>
+                    <CustomFileInput name="image" required/>
                 </div>
                 <div className="grid gap-2">
                     <Label required={true}>Stock of Small Size</Label>
