@@ -2,9 +2,9 @@
 import Label from "@/components/ui/Label";
 import {Button} from "@/components/ui/Button";
 import {Input} from "@/components/ui/Input";
-import {createUser} from "@/actions/userActions";
 import Switch from "@/components/ui/Switch";
 import CustomFileInput from "@/components/ui/CustomFileInput";
+import {createProductType} from "@/actions/productActions";
 
 export default function AddProducts({searchParams, productTypes}) {
     console.log(searchParams)
@@ -13,7 +13,7 @@ export default function AddProducts({searchParams, productTypes}) {
         <div>
             <h1 className="font-semibold text-2xl p-2">Add Product</h1>
             {/*<hr className="my-5 "/>*/}
-            <form className="grid gap-x-6 gap-y-10 mt-10 grid-cols-2 px-2" action={createUser}>
+            <form className="grid gap-x-6 gap-y-10 mt-10 grid-cols-2 px-2" action={createProductType}>
                 {
                     errorMessage && (
                         <div className="col-span-2 border border-red-500 rounded-xl px-5 py-3 bg-red-50 w-fit">
