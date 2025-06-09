@@ -6,7 +6,7 @@ import {createUser} from "@/actions/userActions";
 import Switch from "@/components/ui/Switch";
 import CustomFileInput from "@/components/ui/CustomFileInput";
 
-export default function AddProducts({searchParams}) {
+export default function AddProducts({searchParams, productTypes}) {
     console.log(searchParams)
     const {errorMessage} = searchParams;
     return (
@@ -28,9 +28,13 @@ export default function AddProducts({searchParams}) {
                 <div className="grid gap-2">
                     <Label required={true}>Product Type</Label>
                     <select className="custom-input appearance-none cursor-pointer" name="productType">
-                        <option value="">Select Product Type</option>
-                        <option value="Kid's Clothing">Kid's Clothing</option>
-                        <option value="Men's Clothing">Men's Clothing</option>
+                        {
+                            productTypes?.map((productType, index) => (
+                                <option value={productType.id} key={productType.id}>
+                                    {productType.name}
+                                </option>
+                            ))
+                        }
                     </select>
                 </div>
                 <div className="grid gap-2">
