@@ -1,10 +1,10 @@
 import ProductsScreen from "@/screens/products";
-import {getProductTypes} from "@/actions/productTypeActions";
+import {getProducts} from "@/actions/productActions";
 
 export default async function productsManagement() {
     return (
         <>
-            <ProductsScreen productTypes={await getProductTypes()}/>
+            <ProductsScreen products={await getProducts()}/>
         </>
     );
 }

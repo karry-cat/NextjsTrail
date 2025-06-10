@@ -7,8 +7,9 @@ import DeleteConfirmationModal from "@/components/ui/DeleteConfirmationModal";
 import {useState} from "react";
 import {deleteProductType} from "@/actions/productTypeActions";
 import Image from "next/image";
+import {cn} from "@/lib/util";
 
-const ProductsScreen = ({productTypes}) => {
+const ProductsScreen = ({products}) => {
     const [isDeleteModalOpen, setIsDeleteModal0pen] = useState(false)
     const [selectedId, setSelectedId] = useState()
 
@@ -46,37 +47,39 @@ const ProductsScreen = ({productTypes}) => {
 
                     <tbody className="text-gray-700 font-medium text-lg text-center">
                     {
-                        productTypes.map((productType, index) => (
-                            <tr key={productType.id}>
+                        products.map((product, index) => (
+                            <tr key={product.id}>
                                 <td className="grid grid-cols-[auto_1fr] gap-3">
                                     <Image
-                                        src="/next.svg"
+                                        src={"/"+product.image}
                                         alt="Product Image"
                                         width={0}
                                         height={0}
                                         sizes="100vw"
-                                        className="w-20 h-20"/>
+                                        className="w-20 h-20 object-cover"/>
                                     <div className="flex flex-col self-center">
-                                        <span>Product Name</span>
+                                        <span>{product.name}</span>
                                         <span className="text-sm text-gray-500 truncate max-w-52">
-                                            This is the Product Description with truncate.
+                                            {product.description}
                                         </span>
                                     </div>
                                 </td>
-                                <td>{productType.name}</td>
-                                <td>{productType.name}</td>
-                                <td>{productType.name}</td>
-                                <td>{productType.name}</td>
-                                <td className="text-green-500">{productType.name}</td>
+                                <td>{product.productType.name || "-"}</td>
+                                <td>{product.mrp || "0"}</td>
+                                <td>{product.sellPrice || "0"}</td>
+                                <td>{product.currentStock || "0"}</td>
+                                <td className={cn(product.isActive ? "text-green-500" : "text-red-500")}>
+                                    {product.isActive ?"Active":"Inactive"}
+                                </td>
                                 <td>
                                     <div className="flex self-center gap-x-3">
-                                        <Link href={`/products/edit/${productType.id}`} className="w-fit">
+                                        <Link href={`/products/edit/${product.id}`} className="w-fit">
                                             <EditIcon></EditIcon>
                                         </Link>
                                         <Button className="bg-transparent p-0 px-2 border-none text-red-500"
                                                 onClick={() => {
                                                     setIsDeleteModal0pen(true);
-                                                    setSelectedId(productType.id);
+                                                    setSelectedId(product.id);
                                                 }}>
                                             <DeleteIcon></DeleteIcon>
                                         </Button>

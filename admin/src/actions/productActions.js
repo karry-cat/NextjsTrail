@@ -75,10 +75,14 @@ export const createProduct = async (formData) => {
     redirect("/products");
 }
 
-// export const getProductTypes = async () => {
-//     const productTypes = await db.productType.findMany();
-//     return productTypes;
-// }
+export const getProducts = async () => {
+    const products = await db.product.findMany({
+        include: {
+            productType: true
+        }
+    });
+    return products;
+}
 //
 // export const getUniqueProductType = async (productTypeId) => {
 //     const productType = await db.productType.findUnique({
