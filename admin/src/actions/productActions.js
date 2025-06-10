@@ -83,15 +83,18 @@ export const getProducts = async () => {
     });
     return products;
 }
-//
-// export const getUniqueProductType = async (productTypeId) => {
-//     const productType = await db.productType.findUnique({
-//         where: {
-//             id: productTypeId
-//         }
-//     })
-//     return productType;
-// }
+
+export const getUniqueProduct = async (productId) => {
+    const product = await db.product.findUnique({
+        where: {
+            id: parseInt(productId)
+        },
+        include: {
+            productType: true
+        }
+    })
+    return product;
+}
 //
 // export const updateProductType = async (formData) => {
 //     const data = {

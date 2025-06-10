@@ -6,11 +6,11 @@ import Switch from "@/components/ui/Switch";
 import CustomFileInput from "@/components/ui/CustomFileInput";
 import {createProduct} from "@/actions/productActions";
 
-export default function AddProducts({searchParams, productTypes}) {
+export default function EditProducts({searchParams, product, productTypes}) {
     const {errorMessage} = searchParams;
     return (
         <div>
-            <h1 className="font-semibold text-2xl p-2">Add Product</h1>
+            <h1 className="font-semibold text-2xl p-2">Edit Product</h1>
             {/*<hr className="my-5 "/>*/}
             <form className="grid gap-x-6 gap-y-10 mt-10 grid-cols-2 px-2" action={createProduct}>
                 {
@@ -22,14 +22,14 @@ export default function AddProducts({searchParams, productTypes}) {
                 }
                 <div className="grid gap-2">
                     <Label required={true}>Product Name</Label>
-                    <Input placeholder="Enter Product Name" name="name"/>
+                    <Input placeholder="Enter Product Name" name="name" value={product.name}/>
                 </div>
                 <div className="grid gap-2">
                     <Label required={true}>Product Type</Label>
                     <select className="custom-input appearance-none cursor-pointer" name="productType">
                         {
                             productTypes?.map((productType, index) => (
-                                <option value={productType.id} key={productType.id}>
+                                <option value={productType.id} key={productType.id} selected={productType.id == product.productType.id}>
                                     {productType.name}
                                 </option>
                             ))
@@ -38,32 +38,32 @@ export default function AddProducts({searchParams, productTypes}) {
                 </div>
                 <div className="grid gap-2">
                     <Label required={true}>MRP</Label>
-                    <Input placeholder="Enter MRP" name="mrp"/>
+                    <Input placeholder="Enter MRP" name="mrp" value={product.mrp}/>
                 </div>
                 <div className="grid gap-2">
                     <Label required={true}>Selling Price</Label>
-                    <Input type="number" placeholder="Enter Selling Price" name="sellPrice"/>
+                    <Input type="number" placeholder="Enter Selling Price" name="sellPrice" value={product.sellPrice}/>
                 </div>
                 <div className="grid gap-2">
                     <Label required={true}>Image</Label>
-                    <CustomFileInput name="image" required/>
+                    <CustomFileInput name="image" required value={product.image}/>
                 </div>
                 <div className="grid gap-2">
                     <Label required={true}>Stock of Small Size</Label>
-                    <Input type="number" placeholder="Enter Stock of Small Size" name="smallSize"/>
+                    <Input type="number" placeholder="Enter Stock of Small Size" name="smallSize" value={product.smallSize}/>
                 </div>
                 <div className="grid gap-2">
                     <Label required={true}>Stock of Medium Size</Label>
-                    <Input type="number" placeholder="Stock of Medium Size" name="mediumSize"/>
+                    <Input type="number" placeholder="Stock of Medium Size" name="mediumSize" value={product.mediumSize}/>
                 </div>
                 <div className="grid gap-2">
                     <Label required={true}>Stock of Large Size</Label>
-                    <Input type="number" placeholder="Stock of Large Size" name="largeSize"/>
+                    <Input type="number" placeholder="Stock of Large Size" name="largeSize" value={product.largeSize}/>
                 </div>
                 {/*<div className="grid gap-2">*/}
                 <div className="grid gap-2">
                     <Label required={true}>Product Status</Label>
-                    <Switch name="isActive"/>
+                    <Switch name="isActive" value={product.isActive?"on":null}/>
                 </div>
                 <div className="grid col-span-2 gap-2">
                     <Label required={true}>Description</Label>
@@ -72,6 +72,7 @@ export default function AddProducts({searchParams, productTypes}) {
                         name="description"
                         rows={5}
                         placeholder="Enter Product Description"
+                        value={product.description}
                     />
                 </div>
 
