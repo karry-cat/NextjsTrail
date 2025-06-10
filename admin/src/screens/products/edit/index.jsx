@@ -4,7 +4,7 @@ import {Button} from "@/components/ui/Button";
 import {Input} from "@/components/ui/Input";
 import Switch from "@/components/ui/Switch";
 import CustomFileInput from "@/components/ui/CustomFileInput";
-import {createProduct} from "@/actions/productActions";
+import {updateProduct} from "@/actions/productActions";
 
 export default function EditProducts({searchParams, product, productTypes}) {
     const {errorMessage} = searchParams;
@@ -12,7 +12,8 @@ export default function EditProducts({searchParams, product, productTypes}) {
         <div>
             <h1 className="font-semibold text-2xl p-2">Edit Product</h1>
             {/*<hr className="my-5 "/>*/}
-            <form className="grid gap-x-6 gap-y-10 mt-10 grid-cols-2 px-2" action={createProduct}>
+            <form className="grid gap-x-6 gap-y-10 mt-10 grid-cols-2 px-2"
+                  action={(formData) => updateProduct(formData, product.image)}>
                 {
                     errorMessage && (
                         <div className="col-span-2 border border-red-500 rounded-xl px-5 py-3 bg-red-50 w-fit">
@@ -20,13 +21,15 @@ export default function EditProducts({searchParams, product, productTypes}) {
                         </div>
                     )
                 }
+                <input type="hidden" name="id" value={product.id}/>
                 <div className="grid gap-2">
                     <Label required={true}>Product Name</Label>
                     <Input placeholder="Enter Product Name" name="name" defaultValue={product.name}/>
                 </div>
                 <div className="grid gap-2">
                     <Label required={true}>Product Type</Label>
-                    <select className="custom-input appearance-none cursor-pointer" name="productType" defaultValue={product.productTypeId}>
+                    <select className="custom-input appearance-none cursor-pointer" name="productType"
+                            defaultValue={product.productTypeId}>
                         {
                             productTypes?.map((productType, index) => (
                                 <option value={productType.id} key={productType.id}>
@@ -42,23 +45,27 @@ export default function EditProducts({searchParams, product, productTypes}) {
                 </div>
                 <div className="grid gap-2">
                     <Label required={true}>Selling Price</Label>
-                    <Input type="number" placeholder="Enter Selling Price" name="sellPrice" defaultValue={product.sellPrice}/>
+                    <Input type="number" placeholder="Enter Selling Price" name="sellPrice"
+                           defaultValue={product.sellPrice}/>
                 </div>
                 <div className="grid gap-2">
                     <Label required={true}>Image</Label>
-                    <CustomFileInput name="image" required defaultValue={product.image}/>
+                    <CustomFileInput name="image" defaultValue={product.image}/>
                 </div>
                 <div className="grid gap-2">
                     <Label required={true}>Stock of Small Size</Label>
-                    <Input type="number" placeholder="Enter Stock of Small Size" name="smallSize" defaultValue={product.smallSize}/>
+                    <Input type="number" placeholder="Enter Stock of Small Size" name="smallSize"
+                           defaultValue={product.smallSize}/>
                 </div>
                 <div className="grid gap-2">
                     <Label required={true}>Stock of Medium Size</Label>
-                    <Input type="number" placeholder="Stock of Medium Size" name="mediumSize" defaultValue={product.mediumSize}/>
+                    <Input type="number" placeholder="Stock of Medium Size" name="mediumSize"
+                           defaultValue={product.mediumSize}/>
                 </div>
                 <div className="grid gap-2">
                     <Label required={true}>Stock of Large Size</Label>
-                    <Input type="number" placeholder="Stock of Large Size" name="largeSize" defaultValue={product.largeSize}/>
+                    <Input type="number" placeholder="Stock of Large Size" name="largeSize"
+                           defaultValue={product.largeSize}/>
                 </div>
                 {/*<div className="grid gap-2">*/}
                 <div className="grid gap-2">
