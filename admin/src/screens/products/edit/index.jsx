@@ -22,14 +22,14 @@ export default function EditProducts({searchParams, product, productTypes}) {
                 }
                 <div className="grid gap-2">
                     <Label required={true}>Product Name</Label>
-                    <Input placeholder="Enter Product Name" name="name" value={product.name}/>
+                    <Input placeholder="Enter Product Name" name="name" defaultValue={product.name}/>
                 </div>
                 <div className="grid gap-2">
                     <Label required={true}>Product Type</Label>
-                    <select className="custom-input appearance-none cursor-pointer" name="productType">
+                    <select className="custom-input appearance-none cursor-pointer" name="productType" defaultValue={product.productTypeId}>
                         {
                             productTypes?.map((productType, index) => (
-                                <option value={productType.id} key={productType.id} selected={productType.id == product.productType.id}>
+                                <option value={productType.id} key={productType.id}>
                                     {productType.name}
                                 </option>
                             ))
@@ -38,32 +38,32 @@ export default function EditProducts({searchParams, product, productTypes}) {
                 </div>
                 <div className="grid gap-2">
                     <Label required={true}>MRP</Label>
-                    <Input placeholder="Enter MRP" name="mrp" value={product.mrp}/>
+                    <Input placeholder="Enter MRP" name="mrp" defaultValue={product.mrp}/>
                 </div>
                 <div className="grid gap-2">
                     <Label required={true}>Selling Price</Label>
-                    <Input type="number" placeholder="Enter Selling Price" name="sellPrice" value={product.sellPrice}/>
+                    <Input type="number" placeholder="Enter Selling Price" name="sellPrice" defaultValue={product.sellPrice}/>
                 </div>
                 <div className="grid gap-2">
                     <Label required={true}>Image</Label>
-                    <CustomFileInput name="image" required value={product.image}/>
+                    <CustomFileInput name="image" required defaultValue={product.image}/>
                 </div>
                 <div className="grid gap-2">
                     <Label required={true}>Stock of Small Size</Label>
-                    <Input type="number" placeholder="Enter Stock of Small Size" name="smallSize" value={product.smallSize}/>
+                    <Input type="number" placeholder="Enter Stock of Small Size" name="smallSize" defaultValue={product.smallSize}/>
                 </div>
                 <div className="grid gap-2">
                     <Label required={true}>Stock of Medium Size</Label>
-                    <Input type="number" placeholder="Stock of Medium Size" name="mediumSize" value={product.mediumSize}/>
+                    <Input type="number" placeholder="Stock of Medium Size" name="mediumSize" defaultValue={product.mediumSize}/>
                 </div>
                 <div className="grid gap-2">
                     <Label required={true}>Stock of Large Size</Label>
-                    <Input type="number" placeholder="Stock of Large Size" name="largeSize" value={product.largeSize}/>
+                    <Input type="number" placeholder="Stock of Large Size" name="largeSize" defaultValue={product.largeSize}/>
                 </div>
                 {/*<div className="grid gap-2">*/}
                 <div className="grid gap-2">
                     <Label required={true}>Product Status</Label>
-                    <Switch name="isActive" value={product.isActive?"on":null}/>
+                    <Switch name="isActive" defaultValue={product.isActive}/>
                 </div>
                 <div className="grid col-span-2 gap-2">
                     <Label required={true}>Description</Label>
@@ -72,7 +72,7 @@ export default function EditProducts({searchParams, product, productTypes}) {
                         name="description"
                         rows={5}
                         placeholder="Enter Product Description"
-                        value={product.description}
+                        defaultValue={product.description}
                     />
                 </div>
 

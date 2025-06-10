@@ -1,13 +1,19 @@
 import {Input} from "@/components/ui/Input";
 import {UploadIcon} from "@/components/icons";
-import {useState} from "react";
+import {useEffect, useState} from "react";
 
-const CustomFileInput = ({name, required})=>{
+const CustomFileInput = ({name, required, defaultValue})=>{
     const [fileName, setFileName] = useState("No file chosen.");
     const handleFileChange = (event)=>{
         const file = event.target.files[0];
         setFileName(file.name || "No file chosen.")
     }
+    useEffect(()=> {
+        if (defaultValue) {
+            let parts = defaultValue.split("/");
+            setFileName(parts[parts.length - 1])
+        }
+    }, [defaultValue])
     return(
         <div className="grid grid-cols-[auto_1fr] gap-2 items-center">
             <Input type="file" name={name} required={required} className="sr-only" id="fileInput" onChange={handleFileChange}/>
