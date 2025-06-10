@@ -174,12 +174,13 @@ export async function handleDeleteImage(imagePath){
     }
 }
 
-//
-// export async function deleteProductType(productTypeId) {
-//     await db.productType.delete({
-//         where:{
-//             id: productTypeId
-//         }
-//     });
-//     revalidatePath("/product-type","page");
-// }
+
+export async function deleteProduct(product) {
+    await db.product.delete({
+        where:{
+            id: parseInt(product.id)
+        }
+    });
+    await handleDeleteImage(product.image)
+    revalidatePath("/products","page");
+}

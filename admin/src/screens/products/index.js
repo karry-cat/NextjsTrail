@@ -5,18 +5,18 @@ import {DeleteIcon, EditIcon} from "@/components/icons";
 import {Button} from "@/components/ui/Button";
 import DeleteConfirmationModal from "@/components/ui/DeleteConfirmationModal";
 import {useState} from "react";
-import {deleteProductType} from "@/actions/productTypeActions";
 import Image from "next/image";
 import {cn} from "@/lib/util";
+import {deleteProduct} from "@/actions/productActions";
 
 const ProductsScreen = ({products}) => {
     const [isDeleteModalOpen, setIsDeleteModal0pen] = useState(false)
-    const [selectedId, setSelectedId] = useState()
+    const [product, setProduct] = useState()
 
     const handleDelete = async () => {
-        await deleteProductType(selectedId);
+        await deleteProduct(product);
         setIsDeleteModal0pen(false)
-        setSelectedId(null)
+        setProduct(null)
     }
 
     return (
@@ -79,7 +79,7 @@ const ProductsScreen = ({products}) => {
                                         <Button className="bg-transparent p-0 px-2 border-none text-red-500"
                                                 onClick={() => {
                                                     setIsDeleteModal0pen(true);
-                                                    setSelectedId(product.id);
+                                                    setProduct(product);
                                                 }}>
                                             <DeleteIcon></DeleteIcon>
                                         </Button>
