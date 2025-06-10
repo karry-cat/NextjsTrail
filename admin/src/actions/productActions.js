@@ -9,14 +9,14 @@ import {writeFile} from "fs/promises"
 
 const UPLOAD_DIR = path.resolve("public/uploads");
 
-export const createProductType = async (formData) => {
+export const createProduct = async (formData) => {
 
     const data = {
         name: formData.get("name"),
         description: formData.get("description"),
         sellPrice: formData.get("sellPrice"),
         mrp: formData.get("mrp"),
-        smallsize: formData.get("smallSize"),
+        smallSize: formData.get("smallSize"),
         mediumSize: formData.get("mediumSize"),
         largeSize: formData.get("largeSize"),
         productTypeId: formData.get("productType"),
@@ -48,15 +48,31 @@ export const createProductType = async (formData) => {
     }
 
 
+    const totalStock = parseInt(data.smallSize)+parseInt(data.mediumSize)+parseInt(data.largeSize);
 
-    // await db.productType.create({
-    //     data: {
-    //         name: data.name,
-    //     }
-    // })
-    //
-    // revalidatePath("/product-type", "page");
-    // redirect("/product-type");
+    await db.product.create({
+        data:{
+            name : data.name,
+            description : data.description,
+            sellPrice : parseFloat(data.sellPrice),
+            mrp : parseFloat(data.mrp),
+            image : imagePath,
+            currentStock : totalStock,
+            productTypeId : parseInt(data.productTypeId),
+            isActive : data.isActive==="on" ? true : false,
+            smallSize : parseInt(data.smallSize),
+            mediumSize : parseInt(data.mediumSize),
+            largeSize : parseInt(data.largeSize),
+            // productType: {
+            //     connect: {
+            //         id: parseInt(data.productTypeId)
+            //     }
+            // }
+        }
+    })
+
+    revalidatePath("/products", "page");
+    redirect("/products");
 }
 
 // export const getProductTypes = async () => {
