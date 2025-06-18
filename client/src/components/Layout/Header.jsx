@@ -1,4 +1,4 @@
-import {CartIcon, UserIcon} from "@/components/icons";
+import {CartIcon, SearchIcon, UserIcon} from "@/components/icons";
 
 const Header = () => {
     return (
@@ -6,10 +6,13 @@ const Header = () => {
             <div className="container">
                 <div className="flex justify-between items-center">
                     <h1 className="text-3xl font-semibold">Header</h1>
-                    <input placeholder="Search Product..." className="bg-gray-100"/>
+                    <div className="relative w-full max-w-lg">
+                        <SearchIcon className="absolute left-2 top-2 w-7 h-7"/>
+                        <input placeholder="Search Product..." className="custom-input pl-10"/>
+                    </div>
                     <div className="flex gap-3">
-                        <CartIcon/>
-                        <UserIcon/>
+                        <CartIcon className="w-7 h-7"/>
+                        <UserIcon className="w-7 h-7"/>
                     </div>
                 </div>
             </div>
