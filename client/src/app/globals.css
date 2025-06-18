@@ -19,4 +19,12 @@
         focus-visible:ring-neutral-400 disabled:cursor-not-allowed disabled:opacity-50
         group-hover/input:shadow-none;
     }
+
+    .dropdown-menu {
+        @apply absolute right-0 mt-2 w-48 bg-white border rounded-md shadow-lg font-medium;
+    }
+
+    .icon-button {
+        @apply bg-transparent inline-flex items-center cursor-pointer;
+    }
 }
