@@ -1,13 +1,32 @@
 'use client'
 import {CartIcon, SearchIcon, UserIcon} from "@/components/icons";
 import Link from "next/link";
-import {useState} from "react";
+import {useEffect, useRef, useState} from "react";
 
 const Header = () => {
     const [dropdownOpen, setDropdownOpen] = useState(false);
-    const toggleDropdown = ()=>{
-        setDropdownOpen(!dropdownOpen) ;
+    const dropdownRef = useRef(null)
+    const toggleDropdown = () => {
+        setDropdownOpen(!dropdownOpen);
     }
+
+    const handleClickOutside = (event) => {
+        console.log(dropdownRef)
+        if (dropdownRef.current && !dropdownRef.current.contains(event.target)) {
+            setDropdownOpen(false)
+        }
+    }
+
+    useEffect(() => {
+        if (dropdownOpen) {
+            document.addEventListener("mousedown", handleClickOutside);
+        } else {
+            document.removeEventListener("mousedown", handleClickOutside);
+        }
+        return () => {
+            document.removeEventListener("mousedown", handleClickOutside);
+        }
+    }, [dropdownOpen]);
     return (
         <div className="navbar">
             <div className="container">
@@ -17,7 +36,7 @@ const Header = () => {
                         <SearchIcon className="absolute left-2 top-2 w-7 h-7"/>
                         <input placeholder="Search Product..." className="custom-input pl-10"/>
                     </div>
-                    <div className="relative">
+                    <div className="relative" ref={dropdownRef}>
                         <div className="flex gap-3">
                             <CartIcon className="w-7 h-7"/>
                             <button className="icon-button" onClick={toggleDropdown}>
