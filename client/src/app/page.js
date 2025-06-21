@@ -1,7 +1,7 @@
-import Image from "next/image";
+import HomeScreen from "@/screens/home";
 
 export default function Home() {
   return (
-      <h1>client</h1>
+      <HomeScreen/>
   );
 }
