@@ -2,6 +2,7 @@
 import {CartIcon, SearchIcon, UserIcon} from "@/components/icons";
 import Link from "next/link";
 import {useEffect, useRef, useState} from "react";
+import {Input} from "@/components/ui/Input";
 
 const Header = () => {
     const [dropdownOpen, setDropdownOpen] = useState(false);
@@ -11,7 +12,6 @@ const Header = () => {
     }
 
     const handleClickOutside = (event) => {
-        console.log(dropdownRef)
         if (dropdownRef.current && !dropdownRef.current.contains(event.target)) {
             setDropdownOpen(false)
         }
@@ -34,7 +34,7 @@ const Header = () => {
                     <h1 className="text-3xl font-semibold">Header</h1>
                     <div className="relative w-full max-w-lg">
                         <SearchIcon className="absolute left-2 top-2 w-7 h-7"/>
-                        <input placeholder="Search Product..." className="custom-input pl-10"/>
+                        <Input placeholder="Search Product..." className="custom-input pl-10"/>
                     </div>
                     <div className="relative" ref={dropdownRef}>
                         <div className="flex gap-3">
