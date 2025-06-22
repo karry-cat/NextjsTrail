@@ -1,5 +1,6 @@
 import Image from "next/Image"
 import {StarIcon} from "@/components/icons";
+import {Button} from "@/components/ui/Button";
 
 const ProductCard = () => {
     return (
@@ -38,8 +39,8 @@ const ProductCard = () => {
                     </div>
                 </div>
                 <div className="flex gap-x-2">
-                    <button className="custom-btn w-full custom-outline-btn">Add to Cart</button>
-                    <button className="custom-btn w-full">Buy Now</button>
+                    <Button className="w-full custom-outline-btn">Add to Cart</Button>
+                    <Button className="w-full">Buy Now</Button>
                 </div>
             </div>
         </div>
