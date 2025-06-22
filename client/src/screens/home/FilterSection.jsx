@@ -2,6 +2,7 @@
 import {useRouter} from "next/navigation";
 import {objectToQueryString} from "@/lib/util";
 import Accordion from "@/components/ui/Accordion";
+import PriceRangeSlider from "@/components/ui/PriceRangeSlider";
 
 
 const FilterSection = ({searchParams}) => {
@@ -60,6 +61,12 @@ const FilterSection = ({searchParams}) => {
         updateSearchParams([{openAccordion: newOpenAccordion.join(",")}]);
     }
 
+    const minPrice = searchParams.minPrice || "0";
+    const maxPrice = searchParams.maxPrice || "100";
+    const handlePriceRangeChange = (value)=>{
+        updateSearchParams([{minPrice:value[0]}, {maxPrice:value[1]}])
+    }
+
     return (
         <div className="rounded-lg shadow-lg space-y-3 p-5 bg-white h-fit">
             <h1 className="text-2xl mb-8 font-semibold">Filters</h1>
@@ -107,17 +114,12 @@ const FilterSection = ({searchParams}) => {
                 type="priceRange"
                 handleAccordion={handleAccordion}
             >
-                <div className="flex flex-wrap gap-3 pt-2">
-                    {
-                        CategoryItems.map((item, index) => (
-                            <div key={index}>
-                                <input type="checkbox" id={`productType-${item.value}`} className="hidden peer"/>
-                                <label htmlFor={`productType-${item.value}`} className="checkbox-button-label">
-                                    {item.label}
-                                </label>
-                            </div>
-                        ))
-                    }
+                <div className="p-3">
+                    <PriceRangeSlider minValue={0} maxValue={100} value={[minPrice, maxPrice]} handleChange={handlePriceRangeChange} />
+                </div>
+                <div className="flex justify-between mt-2">
+                    <span>${minPrice}</span>
+                    <span>${maxPrice}</span>
                 </div>
             </Accordion>
             <Accordion
