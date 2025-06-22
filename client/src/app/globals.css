@@ -36,5 +36,9 @@
     .accordian-button {
         @apply flex justify-between items-center w-full text-xl font-semibold cursor-pointer
     }
+
+    .product-type-label {
+        @apply rounded-lg border border-gray-500 text-sm font-medium p-2;
+    }
 }
 
