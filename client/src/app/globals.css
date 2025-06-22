@@ -32,5 +32,8 @@
         @apply inline-flex items-center text-sm text-gray-700 border border-gray-700 rounded-lg
         px-3 py-2 cursor-pointer peer-checked:bg-blue-700 peer-checked:text-white hover:text-gray-600 hover:bg-gray-100;
     }
+    .accordian-button {
+        @apply flex justify-between items-center w-full text-xl font-semibold cursor-pointer
+    }
 }
 

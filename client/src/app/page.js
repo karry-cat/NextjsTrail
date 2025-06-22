@@ -1,7 +1,7 @@
 import HomeScreen from "@/screens/home";
 
-export default function Home() {
-  return (
-      <HomeScreen/>
-  );
+export default async function Home({searchParams}) {
+    return (
+        <HomeScreen searchParams={await searchParams}/>
+    );
 }
