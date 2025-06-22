@@ -16,24 +16,30 @@ const ProductCard = () => {
                     <span className="text-2xl font-semibold leading-5">Product Name</span>
                     <p className="text-gray-400 text-md truncate">This is the product description.</p>
                 </div>
-                <div className="flex justify-between items-center">
-                    <div className="flex gap-x-3 items-center text-xl font-semibold">
-                        <span className="text-gray-500 line-through">$19.99</span>
-                        <span className="text-2xl">$16.99</span>
+                <div className="space-y-0">
+                    <div className="flex justify-between items-center">
+                        <div className="flex gap-x-3 items-center text-xl font-semibold">
+                            <span className="text-gray-500 line-through">$19.99</span>
+                            <span className="text-2xl">$16.99</span>
+                        </div>
+                        <span className="text-gray-400 text-md">12 left</span>
                     </div>
-                    <span className="text-gray-400 text-md">12 left</span>
+                    <div className="flex justify-between items-center">
+                        <div className="flex gap-x-1">
+                            {
+                                [...Array(5)].map(
+                                    (_, index) => (<StarIcon key={index}/>)
+                                )
+                            }
+                        </div>
+                        <div className="product-type-label">
+                            Product Type
+                        </div>
+                    </div>
                 </div>
-                <div className="flex justify-between items-center">
-                    <div className="flex gap-x-1">
-                        {
-                            [...Array(5)].map(
-                                (_, index)=> (<StarIcon key={index}/>)
-                            )
-                        }
-                    </div>
-                    <div className="product-type-label">
-                        Product Type
-                    </div>
+                <div className="flex gap-x-2">
+                    <button className="custom-btn w-full custom-outline-btn">Add to Cart</button>
+                    <button className="custom-btn w-full">Buy Now</button>
                 </div>
             </div>
         </div>
