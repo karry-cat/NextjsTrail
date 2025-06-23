@@ -5,7 +5,7 @@ export default async function Home({searchParams}) {
     const products = await getProducts();
     const productTypesRes = await getProductTypes();
     const productTypes = [
-        {label: "All", value: "All"},
+        {label: "All", value: "all"},
         ...productTypesRes?.data?.map((item)=>({
             label: item.name,
             value: item.id

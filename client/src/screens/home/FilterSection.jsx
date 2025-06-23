@@ -28,6 +28,11 @@ const FilterSection = ({searchParams, productTypes}) => {
         {label:"Out of Stock", value:"false"}
     ]
 
+    const productTypeId = searchParams.productTypeId || "all";
+    const sortBy = searchParams.sortBy || "all";
+    const rating = searchParams.rating || "all";
+    const inStock = searchParams.inStock || "all";
+
 
     const router = useRouter();
     const openAccordion = searchParams.openAccordion?.split(",") || [];
@@ -37,7 +42,7 @@ const FilterSection = ({searchParams, productTypes}) => {
 
         newParamsArray?.forEach((param) => {
             Object.entries(param).forEach(([key, value]) => {
-                if (value === null || value === "") {
+                if (value === null || value === "" || value === "all") {
                     delete updatedSearchParams[key];
                 } else {
                     updatedSearchParams[key] = value;
@@ -62,6 +67,12 @@ const FilterSection = ({searchParams, productTypes}) => {
         updateSearchParams([{minPrice:value[0]}, {maxPrice:value[1]}])
     }
 
+    const handleFilterChange = (filterType, value)=> {
+        updateSearchParams(
+            [{[filterType]: value}]
+        )
+    }
+
     return (
         <div className="rounded-lg shadow-lg space-y-3 p-5 bg-white h-fit">
             <h1 className="text-2xl mb-8 font-semibold">Filters</h1>
@@ -75,8 +86,15 @@ const FilterSection = ({searchParams, productTypes}) => {
                     {
                         productTypes.map((item, index) => (
                             <div key={index}>
-                                <input type="checkbox" id={`productType-${item.value}`} className="hidden peer"/>
-                                <label htmlFor={`productType-${item.value}`} className="checkbox-button-label">
+                                <input type="checkbox"
+                                       id={`productType-${item.value}`}
+                                       className="hidden peer"
+                                       name="productTypeId"
+                                       value={item.value}
+                                       checked={productTypeId == item.value}
+                                       onChange={()=>handleFilterChange("productTypeId",item.value)}/>
+                                <label htmlFor={`productType-${item.value}`}
+                                       className="checkbox-button-label">
                                     {item.label}
                                 </label>
                             </div>
@@ -94,7 +112,13 @@ const FilterSection = ({searchParams, productTypes}) => {
                     {
                         SortByItems.map((item, index) => (
                             <div key={index}>
-                                <input type="checkbox" id={`sortBy-${item.value}`} className="hidden peer"/>
+                                <input type="checkbox"
+                                       id={`sortBy-${item.value}`}
+                                       className="hidden peer"
+                                       name="sortBy"
+                                       value={item.value}
+                                       checked={sortBy == item.value}
+                                       onChange={()=>handleFilterChange("sortBy",item.value)}/>
                                 <label htmlFor={`sortBy-${item.value}`} className="checkbox-button-label">
                                     {item.label}
                                 </label>
@@ -127,7 +151,13 @@ const FilterSection = ({searchParams, productTypes}) => {
                     {
                         RatingItems.map((item, index) => (
                             <div key={index}>
-                                <input type="checkbox" id={`rating-${item.value}`} className="hidden peer"/>
+                                <input type="checkbox"
+                                       id={`rating-${item.value}`}
+                                       className="hidden peer"
+                                       name="rating"
+                                       value={item.value}
+                                       checked={rating == item.value}
+                                       onChange={()=>handleFilterChange("rating",item.value)}/>
                                 <label htmlFor={`rating-${item.value}`} className="checkbox-button-label">
                                     {item.label}
                                 </label>
@@ -146,7 +176,13 @@ const FilterSection = ({searchParams, productTypes}) => {
                     {
                         AvailabilityItems.map((item, index) => (
                             <div key={index}>
-                                <input type="checkbox" id={`availability-${item.value}`} className="hidden peer"/>
+                                <input type="checkbox"
+                                       id={`availability-${item.value}`}
+                                       className="hidden peer"
+                                       name="inStock"
+                                       value={item.value}
+                                       checked={inStock == item.value}
+                                       onChange={()=>handleFilterChange("inStock",item.value)}/>
                                 <label htmlFor={`availability-${item.value}`} className="checkbox-button-label">
                                     {item.label}
                                 </label>
