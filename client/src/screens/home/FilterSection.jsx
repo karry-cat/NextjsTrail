@@ -5,12 +5,7 @@ import Accordion from "@/components/ui/Accordion";
 import PriceRangeSlider from "@/components/ui/PriceRangeSlider";
 
 
-const FilterSection = ({searchParams}) => {
-    const CategoryItems = [
-        {label: "All", value: "all"},
-        {label: "Kid's Clothing", value: "Kid's Clothing"},
-        {label: "Men's Clothing", value: "Men's Clothing"}
-    ]
+const FilterSection = ({searchParams, productTypes}) => {
 
     const SortByItems = [
         {label:"All",value:"all"},
@@ -78,7 +73,7 @@ const FilterSection = ({searchParams}) => {
             >
                 <div className="flex flex-wrap gap-3 pt-2">
                     {
-                        CategoryItems.map((item, index) => (
+                        productTypes.map((item, index) => (
                             <div key={index}>
                                 <input type="checkbox" id={`productType-${item.value}`} className="hidden peer"/>
                                 <label htmlFor={`productType-${item.value}`} className="checkbox-button-label">
