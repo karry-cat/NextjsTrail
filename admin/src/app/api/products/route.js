@@ -38,7 +38,7 @@ export async function GET(request) {
             include: {
                 productType: true
             },
-            where: whereClause,
+            where: {...whereClause, isActive: true},
             orderBy: {
                 sellPrice: filters.sortBy === "sellPrice"
                     ? "asc"

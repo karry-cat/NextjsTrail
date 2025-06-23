@@ -1,11 +1,19 @@
-import {getProductTypes} from "@/actions/productTypeActions";
 import {NextResponse} from "next/server";
-import {getUniqueProduct} from "@/actions/productActions";
+import {db} from "@/lib/db";
 
 export async function GET(request, {params}) {
     try {
         const productId = params.productId;
-        const product = await getUniqueProduct(productId)
+        const product = await db.product.findUnique({
+            where: {
+                id: parseInt(productId),
+                isActive: true,
+            },
+            include: {
+                productType: true,
+
+            }
+        })
         if (!product) {
             return NextResponse.json(
                 {
