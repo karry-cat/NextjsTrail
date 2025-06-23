@@ -9,8 +9,8 @@ const FilterSection = ({searchParams, productTypes}) => {
 
     const SortByItems = [
         {label:"All",value:"all"},
-        {label:"Price high to low",value:"highToLow"},
-        {label:"Price low to high",value:"lowToHigh"}
+        {label:"Price high to low",value:"-sellPrice"},
+        {label:"Price low to high",value:"sellPrice"}
     ]
 
     const RatingItems = [

@@ -5,7 +5,7 @@ export async function GET(request) {
     try {
         const {searchParams} = new URL(request.url);
         const filters = {
-            productType: searchParams.get("productTypeId"),
+            productTypeId: searchParams.get("productTypeId"),
             sortBy: searchParams.get("sortBy"),
             minPrice: searchParams.get("minPrice") ? Number(searchParams.get("minPrice")) : undefined,
             maxPrice: searchParams.get("maxPrice") ? Number(searchParams.get("maxPrice")) : undefined,

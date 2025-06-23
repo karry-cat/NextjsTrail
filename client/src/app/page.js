@@ -2,7 +2,7 @@ import HomeScreen from "@/screens/home";
 import {getProducts, getProductTypes} from "@/action/productAction";
 
 export default async function Home({searchParams}) {
-    const products = await getProducts();
+    const products = await getProducts(searchParams);
     const productTypesRes = await getProductTypes();
     const productTypes = [
         {label: "All", value: "all"},
