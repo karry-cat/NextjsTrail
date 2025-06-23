@@ -1,14 +1,15 @@
-import {NextResponse} from "next/server";
 import {getProducts} from "@/actions/productActions";
+import {NextResponse} from "next/server";
+import {getProductTypes} from "@/actions/productTypeActions";
 
 export async function GET() {
     try {
-        const products = await getProducts();
+        const productTypes = await getProductTypes()
         return NextResponse.json(
             {
                 status: 200,
-                message: "Products fetched successfully!",
-                data: products
+                message: "Product Types fetched successfully!",
+                data: productTypes
             }
         )
     } catch (error) {
