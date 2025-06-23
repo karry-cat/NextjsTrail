@@ -22,3 +22,9 @@ export async function getProductTypes() {
     // console.log(data);
     return data;
 }
+
+export async function getProductById(productId) {
+    const res = await fetch(`${BASE_URL}/api/products/${productId}`);
+    const data = await res.json();
+    return data;
+}

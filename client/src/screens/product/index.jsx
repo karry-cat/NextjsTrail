@@ -2,7 +2,9 @@ import Image from "next/Image"
 import {StarIcon} from "@/components/icons";
 import {Button} from "@/components/ui/Button";
 
-export default function ProductScreen() {
+export default function ProductScreen({product}) {
+
+    const BASE_URL = process.env.BASE_URL;
 
     const sizeOptions = [
         {label: "s", value: "smallSize"},
@@ -15,7 +17,7 @@ export default function ProductScreen() {
             <div className="w-full h-full bg-gray-100 rounded-xl p-3">
                 <Image
                     className="w-full h-full max-h-[calc(100vh-150px)] rounded-xl m-auto"
-                    src="/next.svg"
+                    src={`${BASE_URL}${product?.image}`}
                     alt="product"
                     width={0}
                     height={0}
@@ -24,13 +26,13 @@ export default function ProductScreen() {
             <div className="px-5">
                 <div className="flex justify-end">
                     <div className="product-type-label">
-                        Product Type
+                        {product?.productType?.name}
                     </div>
                 </div>
-                <h1 className="text-2xl font-medium">Product Name</h1>
+                <h1 className="text-2xl font-medium">{product?.name}</h1>
                 <div className="flex gap-x-1">
                     {
-                        [...Array(5)].map((_, index) => (
+                        [...Array(product?.rating || 0)].map((_, index) => (
                             <StarIcon key={index}/>
                         ))
                     }
@@ -40,10 +42,10 @@ export default function ProductScreen() {
                         Special Price
                     </h6>
                     <div className="text-xl font-medium flex gap-x-3 items-center">
-                        <span className="text-2xl">$16.99</span>
-                        <span className="text-gray-500 line-through">$19.99</span>
+                        <span className="text-2xl">${product?.sellPrice}</span>
+                        <span className="text-gray-500 line-through">${product?.mrp}</span>
                     </div>
-                    <span className="text-gray-500 font-medium">123 item left</span>
+                    <span className="text-gray-500 font-medium">{product?.currentStock} item left</span>
                 </div>
                 <div className="my-7 space-y-1">
                     <h6 className="text-lg font-semibold">Size</h6>
@@ -64,7 +66,7 @@ export default function ProductScreen() {
                     </div>
                 </div>
                 <p className="text-lg font-semibold">Description</p>
-                <p className="text-gray-600">This is the product description.</p>
+                <p className="text-gray-600">{product?.description}</p>
                 <div className="my-7 flex gap-x-5">
                     <Button className="custom-outline-btn w-full">
                         Add to Cart
