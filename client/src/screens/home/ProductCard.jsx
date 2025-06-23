@@ -1,6 +1,7 @@
 import Image from "next/Image"
 import {StarIcon} from "@/components/icons";
 import {Button} from "@/components/ui/Button";
+import Link from "next/link";
 
 const ProductCard = ({product}) => {
     const BASE_URL= process.env.BASE_URL;
@@ -18,7 +19,10 @@ const ProductCard = ({product}) => {
                 sizes="100vw"/>
             <div className="p-5 space-y-4">
                 <div className="space-y-1">
-                    <span className="text-2xl font-semibold leading-5">{product?.name}</span>
+                    <Link className="text-2xl font-semibold leading-5"
+                          href={`/product/${product?.id}`}>
+                        {product?.name}
+                    </Link>
                     <p className="text-gray-400 text-md truncate">{product?.description}</p>
                 </div>
                 <div className="space-y-0">
