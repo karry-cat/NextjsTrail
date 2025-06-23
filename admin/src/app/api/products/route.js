@@ -1,9 +1,48 @@
 import {NextResponse} from "next/server";
-import {getProducts} from "@/actions/productActions";
+import {db} from "@/lib/db";
 
-export async function GET() {
+export async function GET(request) {
     try {
-        const products = await getProducts();
+        const {searchParams} = new URL(request.url);
+        const filters = {
+            productType: searchParams.get("productTypeId"),
+            sortBy: searchParams.get("sortBy"),
+            minPrice: searchParams.get("minPrice") ? Number(searchParams.get("minPrice")) : undefined,
+            maxPrice: searchParams.get("maxPrice") ? Number(searchParams.get("maxPrice")) : undefined,
+            rating: searchParams.get("rating") ? Number(searchParams.get("rating")) : undefined,
+            inStock: searchParams.get("inStock") ? searchParams.get("inStock") : undefined
+        }
+
+        const whereClause = {
+            ...(filters.productTypeId
+                ? {productTypeId: Number(filters.productTypeId)}
+                : {}),
+            ...(filters.minPrice || filters.maxPrice
+                ? {sellPrice: {gte: filters.minPrice || undefined, lte: filters.maxPrice || undefined}}
+                : {}),
+            ...(filters.rating !== undefined
+                ? {rating: filters.rating}
+                : {}),
+            ...(filters.inStock === "true"
+                ? {currentStock: {gt: 0}}
+                : filters.inStock === "false"
+                    ? {currentStock: 0}
+                    : {})
+        }
+
+        const products = await db.product.findMany({
+            include: {
+                productType: true
+            },
+            where: whereClause,
+            orderBy: {
+                sellPrice: filters.sortBy === "sellPrice"
+                    ? "asc"
+                    : filters.sortBy === "-sellPrice"
+                        ? "desc"
+                        : undefined
+            }
+        });
         return NextResponse.json(
             {
                 status: 200,
