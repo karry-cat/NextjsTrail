@@ -3,8 +3,47 @@ import {CartIcon, SearchIcon, UserIcon} from "@/components/icons";
 import Link from "next/link";
 import {useEffect, useRef, useState} from "react";
 import {Input} from "@/components/ui/Input";
+import {useRouter, useSearchParams} from "next/navigation";
+import {objectToQueryString} from "@/lib/util";
 
 const Header = () => {
+    const searchParams = useSearchParams();
+    const search = searchParams.get("search") || "";
+    const existingSearchParams = {
+        productTypeId: searchParams.get("productTypeId"),
+        sortBy: searchParams.get("sortBy"),
+        minPrice: searchParams.get("minPrice" || 0),
+        maxPrice: searchParams.get("maxPrice" || 100),
+        rating: searchParams.get("rating"),
+        inStock: searchParams.get("inStock"),
+        openAccordion: searchParams.get("openAccordion"),
+    }
+
+    const router = useRouter();
+    const openAccordion = searchParams.openAccordion?.split(",") || [];
+    const updateSearchParams = (newParamsArray) => {
+        const updatedSearchParams = {...existingSearchParams, search: search};
+        // console.log("NewParamsArray :", newParamsArray);
+
+        newParamsArray?.forEach((param) => {
+            Object.entries(param).forEach(([key, value]) => {
+                if (value === null || value === "" || value === "all") {
+                    delete updatedSearchParams[key];
+                } else {
+                    updatedSearchParams[key] = value;
+                }
+            })
+        })
+        // console.log("After updatedSearchParams : ", updatedSearchParams);
+        router.push(`/?${objectToQueryString(updatedSearchParams)}`);
+    }
+
+    const handleFilterChange = (filterType, value)=> {
+        updateSearchParams(
+            [{[filterType]: value}]
+        )
+    }
+
     const [dropdownOpen, setDropdownOpen] = useState(false);
     const dropdownRef = useRef(null)
     const toggleDropdown = () => {
@@ -34,7 +73,10 @@ const Header = () => {
                     <h1 className="text-3xl font-semibold">Header</h1>
                     <div className="relative w-full max-w-lg">
                         <SearchIcon className="absolute left-2 top-2 w-7 h-7"/>
-                        <Input placeholder="Search Product..." className="custom-input pl-10"/>
+                        <Input placeholder="Search Product..."
+                               className="custom-input pl-10"
+                               value={search}
+                               onChange={(e)=>handleFilterChange("search", e.target.value)} />
                     </div>
                     <div className="relative" ref={dropdownRef}>
                         <div className="flex gap-3">

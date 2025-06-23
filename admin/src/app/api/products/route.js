@@ -10,7 +10,8 @@ export async function GET(request) {
             minPrice: searchParams.get("minPrice") ? Number(searchParams.get("minPrice")) : undefined,
             maxPrice: searchParams.get("maxPrice") ? Number(searchParams.get("maxPrice")) : undefined,
             rating: searchParams.get("rating") ? Number(searchParams.get("rating")) : undefined,
-            inStock: searchParams.get("inStock") ? searchParams.get("inStock") : undefined
+            inStock: searchParams.get("inStock") ? searchParams.get("inStock") : undefined,
+            search:searchParams.get("search")
         }
 
         const whereClause = {
@@ -27,7 +28,10 @@ export async function GET(request) {
                 ? {currentStock: {gt: 0}}
                 : filters.inStock === "false"
                     ? {currentStock: 0}
-                    : {})
+                    : {}),
+            ...(filters.search
+                ? {name: {contains: filters.search.toLowerCase()}}
+                : {}),
         }
 
         const products = await db.product.findMany({
