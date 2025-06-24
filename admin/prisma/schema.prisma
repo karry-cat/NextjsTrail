@@ -42,3 +42,13 @@ model Product{
   updatedAt DateTime @updatedAt
   productType ProductType @relation(fields:[productTypeId], references: [id])
 }
+
+model BuyerMaster{
+  id Int @id @default(autoincrement())
+  customerName String
+  email String @unique
+  password String
+  address String?
+  city String?
+  createdAt DateTime @default(now())
+}

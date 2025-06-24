@@ -7,7 +7,7 @@ import {useProductContext} from "@/components/Layout/ProductContext";
 export default function CartScreen({product}) {
 
     const sizeOptions = [
-        {label: "s", value: "smallSize"},
+        {label: "S", value: "smallSize"},
         {label: "M", value: "mediumSize"},
         {label: "L", value: "largeSize"}
     ]

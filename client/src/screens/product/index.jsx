@@ -12,7 +12,7 @@ export default function ProductScreen({product}) {
     const BASE_URL = process.env.NEXT_PUBLIC_BASE_URL;
 
     const sizeOptions = [
-        {label: "s", value: "smallSize"},
+        {label: "S", value: "smallSize"},
         {label: "M", value: "mediumSize"},
         {label: "L", value: "largeSize"}
     ]
