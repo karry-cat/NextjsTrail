@@ -2,8 +2,8 @@
 import bcrypt from "bcrypt";
 import {db} from "@/lib/db";
 import {redirect} from "next/navigation";
-import {createJWT} from "@/lib/util";
-import {setCookie} from "@/lib/cookies";
+import {createJWT, verifyJWT} from "@/lib/util";
+import {getCookie, setCookie} from "@/lib/cookies";
 
 export async function loginUser(formData) {
     const data = {
@@ -21,6 +21,25 @@ export async function loginUser(formData) {
     }
     const token = await createJWT(user);
     // console.log(token);
-    setCookie("jwt_token", token, {maxAge: 2*60*60})
+    setCookie("jwt_token", token, {maxAge: 2 * 60 * 60})
     redirect("/")
+}
+
+export async function jwtTokenVerification() {
+    const token = getCookie("jwt_token");
+    const tokenData = await verifyJWT(token);
+    if (!tokenData) {
+        return redirect("/login");
+    }
+    return tokenData;
+}
+
+export async function getUserData() {
+    const decodedToken = await jwtTokenVerification();
+    const userData = await db.adminUser.findUnique({
+        where: {
+            id: decodedToken.id
+        }
+    })
+    return userData;
 }

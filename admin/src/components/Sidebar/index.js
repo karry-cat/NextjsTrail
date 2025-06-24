@@ -2,7 +2,7 @@ import Link from "next/link";
 import Image from "next/image";
 import {HomeIcon, ShoppingBagIcon, SwatchIcon, UsersIcon} from "@/components/icons";
 
-export default function Sidebar () {
+export default function Sidebar ({userData}) {
 
     const menuItems = [
         {text:"Dashboard", url:"/", icon: <HomeIcon/>},
@@ -43,7 +43,7 @@ export default function Sidebar () {
                         radius="sm"
                         className="border-gray-600 rounded-full border-2"
                     />
-                    <div className="m-auto text-lg"> John Doe </div>
+                    <div className="m-auto text-lg"> {userData.userName} </div>
                 </div>
             </div>
         </div>
