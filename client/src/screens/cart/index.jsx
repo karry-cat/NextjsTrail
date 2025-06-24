@@ -3,6 +3,7 @@ import Image from 'next/Image'
 import {DeleteIcon, MinusCircleIcon, PlusCircleIcon, StarIcon} from "@/components/icons";
 import {Button} from "@/components/ui/Button";
 import {useProductContext} from "@/components/Layout/ProductContext";
+import {useRouter} from "next/navigation";
 
 export default function CartScreen({product}) {
 
@@ -12,7 +13,14 @@ export default function CartScreen({product}) {
         {label: "L", value: "largeSize"}
     ]
 
-    const {cartItems, setCartItems, increaseQuantity, decreaseQuantity, removeProductFromCart, totalAmount} = useProductContext();
+    const {
+        cartItems,
+        setCartItems,
+        increaseQuantity,
+        decreaseQuantity,
+        removeProductFromCart,
+        totalAmount
+    } = useProductContext();
 
     const BASE_URL = process.env.NEXT_PUBLIC_BASE_URL;
 
@@ -22,6 +30,10 @@ export default function CartScreen({product}) {
         ))
     }
 
+    const router = useRouter();
+    const handleCheckout = () => {
+        router.push("/checkout");
+    }
 
 
     return (
@@ -152,7 +164,7 @@ export default function CartScreen({product}) {
                             <span className="text-end">${totalAmount.toFixed(2)}</span>
                         </div>
                     </div>
-                    <Button className="w-full mt-2">
+                    <Button className="w-full mt-2" onClick={handleCheckout}>
                         Checkout
                     </Button>
                 </div>
