@@ -1,9 +1,9 @@
 import SignUpScreen from "@/screens/sign-up";
 
-export default async function SignUpPage({params}) {
+export default async function SignUpPage({searchParams}) {
     return (
         <>
-            <SignUpScreen />
+            <SignUpScreen searchParams={await searchParams} />
         </>
     );
 }
