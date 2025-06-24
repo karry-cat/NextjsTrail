@@ -6,7 +6,7 @@ import {Input} from "@/components/ui/Input";
 import {useRouter, useSearchParams} from "next/navigation";
 import {objectToQueryString} from "@/lib/util";
 import {useProductContext} from "@/components/Layout/ProductContext";
-import {getCustomerData} from "@/action/authAction";
+import {getCustomerData, logoutUser} from "@/action/authAction";
 
 const Header = () => {
     const searchParams = useSearchParams();
@@ -49,9 +49,9 @@ const Header = () => {
     const [dropdownOpen, setDropdownOpen] = useState(false);
     const dropdownRef = useRef(null)
     const toggleDropdown = () => {
-        if(customerData?.id) {
+        if (customerData?.id) {
             setDropdownOpen(!dropdownOpen);
-        }else{
+        } else {
             router.push("/login")
         }
     }
@@ -76,13 +76,19 @@ const Header = () => {
     const {cartItems, customerData, setCustomerData} = useProductContext();
 
     useEffect(() => {
-            const fetchData = async () => {
-                const res = await getCustomerData();
-                // console.log(res.data);
-                setCustomerData(res?.data)
-            };
-            fetchData();
-        }, []);
+        const fetchData = async () => {
+            const res = await getCustomerData();
+            // console.log(res.data);
+            setCustomerData(res?.data)
+        };
+        fetchData();
+    }, []);
+
+    const handleLogout = async () => {
+        await logoutUser();
+        setCustomerData({});
+        setDropdownOpen(false);
+    }
 
     return (
         <div className="navbar">
@@ -118,12 +124,13 @@ const Header = () => {
                             <div className="dropdown-menu">
                                 <div className="px-4 py-2 border-b">
                                     <p className="text-sm font-light">Welcome, </p>
-                                    <p className="text-lg">{customerData. customerName}</p>
+                                    <p className="text-lg">{customerData.customerName}</p>
                                 </div>
                                 <Link href="/" className="block px-4 py-2 text-base text-gray-700 hover:bg-gray-100">My
                                     Wish List</Link>
                                 <button
-                                    className="block px-4 py-2 text-base text-gray-700hover:bg-gray-100 w-full text-left">
+                                    className="block px-4 py-2 text-base text-gray-700hover:bg-gray-100 w-full text-left"
+                                    onClick={handleLogout}>
                                     Logout
                                 </button>
                             </div>

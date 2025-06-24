@@ -62,10 +62,13 @@ export async function getCustomerData() {
             Cookie: "customer_jwt_token=" + getCookie("customer_jwt_token"),
         }
     });
-    if(!res.ok){
-        await deleteCookie("customer_jwt_token") ;
+    if (!res.ok) {
+        await deleteCookie("customer_jwt_token");
     }
     const data = await res.json();
     return data;
 }
 
+export async function logoutUser() {
+    await deleteCookie("customer_jwt_token");
+}
