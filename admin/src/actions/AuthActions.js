@@ -3,6 +3,7 @@ import bcrypt from "bcrypt";
 import {db} from "@/lib/db";
 import {redirect} from "next/navigation";
 import {createJWT} from "@/lib/util";
+import {setCookie} from "@/lib/cookies";
 
 export async function loginUser(formData) {
     const data = {
@@ -19,5 +20,7 @@ export async function loginUser(formData) {
         return redirect(`/login?errorMessage="Invalid credentials. Please try again."}`);
     }
     const token = await createJWT(user);
-    console.log(token);
+    // console.log(token);
+    setCookie("jwt_token", token, {maxAge: 2*60*60})
+    redirect("/")
 }
