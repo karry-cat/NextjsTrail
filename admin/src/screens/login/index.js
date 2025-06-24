@@ -22,7 +22,7 @@ const LoginScreen = () => {
                     <div className="grid gap-2">
                         <Label required>Password</Label>
                         <Input type="password"
-                               minlength={8}
+                               minLength={8}
                                placeholder="Enter Your Password"
                                name="password"
                                required/>
