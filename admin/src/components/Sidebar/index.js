@@ -1,6 +1,8 @@
 import Link from "next/link";
 import Image from "next/image";
-import {HomeIcon, ShoppingBagIcon, SwatchIcon, UsersIcon} from "@/components/icons";
+import {HomeIcon, LogoutIcon, ShoppingBagIcon, SwatchIcon, UsersIcon} from "@/components/icons";
+import {Button} from "@/components/ui/Button";
+import {logoutUser} from "@/actions/AuthActions";
 
 export default function Sidebar ({userData}) {
 
@@ -34,7 +36,7 @@ export default function Sidebar ({userData}) {
             </ul>
 
             <div className="sidebar-usercard">
-                <div className="flex flex-row m-5 mb-8">
+                <div className="flex flex-row m-5 mb-8 items-center">
                     <Image
                         height={50}
                         width={50}
@@ -44,6 +46,9 @@ export default function Sidebar ({userData}) {
                         className="border-gray-600 rounded-full border-2"
                     />
                     <div className="m-auto text-lg"> {userData.userName} </div>
+                    <Button className="bg-transparent text-black p-0" onClick={logoutUser}>
+                        <LogoutIcon className="h-7 w-7"/>
+                    </Button>
                 </div>
             </div>
         </div>

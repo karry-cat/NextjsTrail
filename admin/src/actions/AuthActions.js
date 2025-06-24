@@ -3,7 +3,7 @@ import bcrypt from "bcrypt";
 import {db} from "@/lib/db";
 import {redirect} from "next/navigation";
 import {createJWT, verifyJWT} from "@/lib/util";
-import {getCookie, setCookie} from "@/lib/cookies";
+import {deleteCookie, getCookie, setCookie} from "@/lib/cookies";
 
 export async function loginUser(formData) {
     const data = {
@@ -29,6 +29,7 @@ export async function jwtTokenVerification() {
     const token = getCookie("jwt_token");
     const tokenData = await verifyJWT(token);
     if (!tokenData) {
+        await deleteCookie("jwt_token");
         return redirect("/login");
     }
     return tokenData;
@@ -42,4 +43,9 @@ export async function getUserData() {
         }
     })
     return userData;
+}
+
+export async function logoutUser() {
+    await deleteCookie("jwt_token");
+    redirect("/login");
 }

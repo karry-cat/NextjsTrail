@@ -15,3 +15,7 @@ export function getCookie(name) {
     const cookie = cookies().get(name);
     return cookie?.value || null;
 }
+
+export async function deleteCookie(name) {
+    cookies().delete(name);
+}
