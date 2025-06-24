@@ -59,9 +59,10 @@ export const updateUser = async (formData) => {
         password: formData.get("password"),
         confirmPassword: formData.get("confirmPassword")
     };
+    let hashedPassword = null;
     if (data.password) {
         const salt = bcrypt.genSaltSync(5);
-        const hashedPassword = await bcrypt.hash(formData.get("password"), salt);
+        hashedPassword = await bcrypt.hash(formData.get("password"), salt);
     }
 
     await db.adminUser.update({
