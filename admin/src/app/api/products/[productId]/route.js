@@ -3,7 +3,7 @@ import {db} from "@/lib/db";
 
 export async function GET(request, {params}) {
     try {
-        const productId = params.productId;
+        const productId = await params.productId;
         const product = await db.product.findUnique({
             where: {
                 id: parseInt(productId),

@@ -6,7 +6,7 @@ import {revalidatePath} from "next/cache";
 const BASE_URL = process.env.NEXT_PUBLIC_BASE_URL;
 
 export async function getProducts(searchParams) {
-    const filteredParams= {...searchParams}
+    const filteredParams= {...await searchParams}
     delete filteredParams.openAccordion
     const res = await fetch(`${BASE_URL}/api/products?${objectToQueryString(filteredParams)}`);
     const data = await res.json();

@@ -12,9 +12,15 @@ export default function CartScreen({product}) {
         {label: "L", value: "largeSize"}
     ]
 
-    const {cartItems} = useProductContext();
+    const {cartItems, setCartItems, increaseQuantity, decreaseQuantity} = useProductContext();
 
     const BASE_URL = process.env.NEXT_PUBLIC_BASE_URL;
+
+    const sizeChangeHandler = (currentProduct, sizeItem) => {
+        setCartItems(prev => (
+            prev.map(product => (product.id === currentProduct.id ? {...product, size: sizeItem.value} : product))
+        ))
+    }
 
     return (
         <div className="my-10">
@@ -66,11 +72,18 @@ export default function CartScreen({product}) {
                                                 </div>
                                                 <div className="flex justify-between items-center">
                                                     <div className="flex gap-x-4 items-center">
-                                                        <Button className="p-0 bg-transparent text-black">
+                                                        <Button className="p-0 bg-transparent text-black disabled:bg-gray-500 disabled:opacity-50"
+                                                                onClick={() => {
+                                                                    if (item?.quantity > 1) {
+                                                                        decreaseQuantity(item?.id)
+                                                                    }
+                                                                }}
+                                                                disabled={item?.quantity === 1}>
                                                             <MinusCircleIcon className="w-8 h-8"/>
                                                         </Button>
                                                         <span className="text-xl font-semibold">{item?.quantity}</span>
-                                                        <Button className="p-0 bg-transparent text-black">
+                                                        <Button className="p-0 bg-transparent text-black"
+                                                                onClick={()=>increaseQuantity(item?.id)}>
                                                             <PlusCircleIcon className="w-8 h-8"/>
                                                         </Button>
                                                     </div>
@@ -82,9 +95,11 @@ export default function CartScreen({product}) {
                                                                     <div>
                                                                         <input type="radio"
                                                                                id={`sizes-${size.value}-${item.id}`}
-                                                                               name={"sizes-"+item.id}
+                                                                               name={"sizes-" + item.id}
                                                                                className="hidden peer"
-                                                                               checked={item.size === size.value}/>
+                                                                               value={size.value}
+                                                                               checked={item.size === size.value}
+                                                                               onChange={()=> sizeChangeHandler(item, size)}/>
                                                                         <label htmlFor={`sizes-${size.value}-${item.id}`}
                                                                                className="checkbox-button-label">
                                                                             {size.label}

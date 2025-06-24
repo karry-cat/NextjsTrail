@@ -15,7 +15,25 @@ export const ProductProvider = ({children}) => {
         setCartItems((prevProducts) => prevProducts.filter((product) => product.id != productId));
     }
 
-    return <ProductContext.Provider value={{cartItems, addProductToCart, removeProductFromCart, setCartItems}}>
+    const increaseQuantity = (productId) => {
+        setCartItems((prevProducts) => prevProducts.map((product) => (
+            product.id === productId
+                ? {...product, quantity: product.quantity + 1}
+                : product))
+        )
+    }
+
+    const decreaseQuantity = (productId) => {
+        setCartItems((prevProducts) => prevProducts.map((product) => (
+            product.id === productId
+                ? {...product, quantity: product.quantity - 1}
+                : product))
+        )
+    }
+
+    return <ProductContext.Provider value={{
+        cartItems, addProductToCart, removeProductFromCart,
+        setCartItems, increaseQuantity, decreaseQuantity,}}>
         {children}
     </ProductContext.Provider>
 };
