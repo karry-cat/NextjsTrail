@@ -19,7 +19,8 @@ export default function CartScreen({product}) {
         increaseQuantity,
         decreaseQuantity,
         removeProductFromCart,
-        totalAmount
+        totalAmount,
+        customerData,
     } = useProductContext();
 
     const BASE_URL = process.env.NEXT_PUBLIC_BASE_URL;
@@ -32,7 +33,11 @@ export default function CartScreen({product}) {
 
     const router = useRouter();
     const handleCheckout = () => {
-        router.push("/checkout");
+        if (customerData?.id) {
+            router.push("/checkout");
+        } else {
+            router.push("/login");
+        }
     }
 
 
@@ -164,8 +169,10 @@ export default function CartScreen({product}) {
                             <span className="text-end">${totalAmount.toFixed(2)}</span>
                         </div>
                     </div>
-                    <Button className="w-full mt-2" onClick={handleCheckout}>
-                        Checkout
+                    <Button className="w-full mt-2"
+                            onClick={handleCheckout}
+                            disabled={cartItems.length === 0}>
+                        {customerData?.id ? "Checkout" : "Login to Checkout"}
                     </Button>
                 </div>
             </div>
