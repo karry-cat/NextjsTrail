@@ -6,6 +6,7 @@ import {Input} from "@/components/ui/Input";
 import {useRouter, useSearchParams} from "next/navigation";
 import {objectToQueryString} from "@/lib/util";
 import {useProductContext} from "@/components/Layout/ProductContext";
+import {getCustomerData} from "@/action/authAction";
 
 const Header = () => {
     const searchParams = useSearchParams();
@@ -39,7 +40,7 @@ const Header = () => {
         router.push(`/?${objectToQueryString(updatedSearchParams)}`);
     }
 
-    const handleFilterChange = (filterType, value)=> {
+    const handleFilterChange = (filterType, value) => {
         updateSearchParams(
             [{[filterType]: value}]
         )
@@ -48,7 +49,11 @@ const Header = () => {
     const [dropdownOpen, setDropdownOpen] = useState(false);
     const dropdownRef = useRef(null)
     const toggleDropdown = () => {
-        setDropdownOpen(!dropdownOpen);
+        if(customerData?.id) {
+            setDropdownOpen(!dropdownOpen);
+        }else{
+            router.push("/login")
+        }
     }
 
     const handleClickOutside = (event) => {
@@ -68,7 +73,16 @@ const Header = () => {
         }
     }, [dropdownOpen]);
 
-    const {cartItems} = useProductContext();
+    const {cartItems, customerData, setCustomerData} = useProductContext();
+
+    useEffect(() => {
+            const fetchData = async () => {
+                const res = await getCustomerData();
+                // console.log(res.data);
+                setCustomerData(res?.data)
+            };
+            fetchData();
+        }, []);
 
     return (
         <div className="navbar">
@@ -82,13 +96,14 @@ const Header = () => {
                         <Input placeholder="Search Product..."
                                className="custom-input pl-10"
                                value={search}
-                               onChange={(e)=>handleFilterChange("search", e.target.value)} />
+                               onChange={(e) => handleFilterChange("search", e.target.value)}/>
                     </div>
                     <div className="relative" ref={dropdownRef}>
                         <div className="flex gap-3">
                             <Link href="/cart">
                                 <div className="relative">
-                                    <div className="absolute -top-2 -right-2 w-5 rounded-full bg-red-500 text-white flex items-center justify-center text-xs font-semibold">
+                                    <div
+                                        className="absolute -top-2 -right-2 w-5 rounded-full bg-red-500 text-white flex items-center justify-center text-xs font-semibold">
                                         {cartItems.length}
                                     </div>
                                     <CartIcon className="w-7 h-7"/>
@@ -101,6 +116,10 @@ const Header = () => {
                         {
                             dropdownOpen &&
                             <div className="dropdown-menu">
+                                <div className="px-4 py-2 border-b">
+                                    <p className="text-sm font-light">Welcome, </p>
+                                    <p className="text-lg">{customerData. customerName}</p>
+                                </div>
                                 <Link href="/" className="block px-4 py-2 text-base text-gray-700 hover:bg-gray-100">My
                                     Wish List</Link>
                                 <button

@@ -8,6 +8,8 @@ const ProductContext = createContext();
 export const ProductProvider = ({children}) => {
     // console.log("product context works")
     const [cartItems, setCartItems] = useState([]);
+    const [customerData, setCustomerData] = useState({});
+
     const addProductToCart = (newProduct) => {
         setCartItems((prevProducts) => [...prevProducts, newProduct]);
     }
@@ -36,8 +38,8 @@ export const ProductProvider = ({children}) => {
     }, 0);
 
     return <ProductContext.Provider value={{
-        cartItems, addProductToCart, removeProductFromCart,
-        setCartItems, increaseQuantity, decreaseQuantity, totalAmount}}>
+        cartItems, addProductToCart, removeProductFromCart, setCartItems,
+        increaseQuantity, decreaseQuantity, totalAmount, customerData, setCustomerData}}>
         {children}
     </ProductContext.Provider>
 };

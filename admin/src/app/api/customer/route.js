@@ -5,6 +5,7 @@ import {verifyJWT} from "@/lib/util";
 export async function GET(request) {
     try {
         const token = request?.cookies?.get("customer_jwt_token")?.value;
+        // console.log(request?.cookies);
         const decodedToken = await verifyJWT(token);
         if(!decodedToken){
             return NextResponse.json(
