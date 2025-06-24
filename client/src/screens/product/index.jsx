@@ -72,7 +72,7 @@ export default function ProductScreen({product}) {
                     <h6 className="text-lg font-semibold">Size</h6>
                     <div className="flex flex-wrap gap-3">
                         {
-                            sizeOptions.map((size, index) => (
+                            sizeOptions.filter((size)=>product[size.value]!==0).map((size, index) => (
                                 <div>
                                     <input type="radio"
                                            id={`sizes-${size.value}`}

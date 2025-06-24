@@ -12,7 +12,7 @@ export default function CartScreen({product}) {
         {label: "L", value: "largeSize"}
     ]
 
-    const {cartItems, setCartItems, increaseQuantity, decreaseQuantity} = useProductContext();
+    const {cartItems, setCartItems, increaseQuantity, decreaseQuantity, removeProductFromCart, totalAmount} = useProductContext();
 
     const BASE_URL = process.env.NEXT_PUBLIC_BASE_URL;
 
@@ -21,6 +21,8 @@ export default function CartScreen({product}) {
             prev.map(product => (product.id === currentProduct.id ? {...product, size: sizeItem.value} : product))
         ))
     }
+
+
 
     return (
         <div className="my-10">
@@ -72,18 +74,20 @@ export default function CartScreen({product}) {
                                                 </div>
                                                 <div className="flex justify-between items-center">
                                                     <div className="flex gap-x-4 items-center">
-                                                        <Button className="p-0 bg-transparent text-black disabled:bg-gray-500 disabled:opacity-50"
-                                                                onClick={() => {
-                                                                    if (item?.quantity > 1) {
-                                                                        decreaseQuantity(item?.id)
-                                                                    }
-                                                                }}
-                                                                disabled={item?.quantity === 1}>
+                                                        <Button
+                                                            className="p-0 bg-transparent text-black disabled:bg-gray-500 disabled:opacity-50"
+                                                            onClick={() => {
+                                                                if (item?.quantity > 1) {
+                                                                    decreaseQuantity(item?.id)
+                                                                }
+                                                            }}
+                                                            disabled={item?.quantity === 1}>
                                                             <MinusCircleIcon className="w-8 h-8"/>
                                                         </Button>
                                                         <span className="text-xl font-semibold">{item?.quantity}</span>
                                                         <Button className="p-0 bg-transparent text-black"
-                                                                onClick={()=>increaseQuantity(item?.id)}>
+                                                                onClick={() => increaseQuantity(item?.id)}
+                                                                disabled={item.quantity === item[item.size]}>
                                                             <PlusCircleIcon className="w-8 h-8"/>
                                                         </Button>
                                                     </div>
@@ -91,25 +95,28 @@ export default function CartScreen({product}) {
                                                         <h6 className="text-lg font-semibold">Size</h6>
                                                         <div className="flex flex-wrap gap-3">
                                                             {
-                                                                sizeOptions.map((size, index) => (
-                                                                    <div>
-                                                                        <input type="radio"
-                                                                               id={`sizes-${size.value}-${item.id}`}
-                                                                               name={"sizes-" + item.id}
-                                                                               className="hidden peer"
-                                                                               value={size.value}
-                                                                               checked={item.size === size.value}
-                                                                               onChange={()=> sizeChangeHandler(item, size)}/>
-                                                                        <label htmlFor={`sizes-${size.value}-${item.id}`}
-                                                                               className="checkbox-button-label">
-                                                                            {size.label}
-                                                                        </label>
-                                                                    </div>
-                                                                ))
+                                                                sizeOptions.filter((size) => item[size.value] !== 0)
+                                                                    .map((size, index) => (
+                                                                        <div>
+                                                                            <input type="radio"
+                                                                                   id={`sizes-${size.value}-${item.id}`}
+                                                                                   name={"sizes-" + item.id}
+                                                                                   className="hidden peer"
+                                                                                   value={size.value}
+                                                                                   checked={item.size === size.value}
+                                                                                   onChange={() => sizeChangeHandler(item, size)}/>
+                                                                            <label
+                                                                                htmlFor={`sizes-${size.value}-${item.id}`}
+                                                                                className="checkbox-button-label">
+                                                                                {size.label}
+                                                                            </label>
+                                                                        </div>
+                                                                    ))
                                                             }
                                                         </div>
                                                     </div>
-                                                    <Button className="!bg-red-500 w-fit flex gap-2 items-center">
+                                                    <Button className="!bg-red-500 w-fit flex gap-2 items-center"
+                                                            onClick={() => removeProductFromCart(item.id)}>
                                                         <DeleteIcon/>
                                                         <span>Remove</span>
                                                     </Button>
@@ -129,15 +136,20 @@ export default function CartScreen({product}) {
                         <h1 className="text-2xl font-semibold border-b">Cart Summary</h1>
 
                         <div className="space-y-3">
-                            <div className="grid grid-cols-2 gap-2 text-xl">
-                                <span className="truncate">Product Name</span>
-                                <span className="text-end">$12.99</span>
-                            </div>
+                            {
+                                cartItems.map((item, index) => (
+                                    <div className="grid grid-cols-2 gap-2 text-xl" key={index}>
+                                        <span className="truncate">{item?.name}</span>
+                                        <span className="text-end">
+                                            ${Number(item?.sellPrice * item.quantity).toFixed(2)}
+                                        </span>
+                                    </div>))
+                            }
                         </div>
 
                         <div className="grid grid-cols-2 gap-2 text-xl font-semibold mt-2 border-t">
                             <span>Total Amount</span>
-                            <span className="text-end">$12.99</span>
+                            <span className="text-end">${totalAmount.toFixed(2)}</span>
                         </div>
                     </div>
                     <Button className="w-full mt-2">
