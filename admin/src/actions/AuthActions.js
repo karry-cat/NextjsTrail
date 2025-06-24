@@ -21,12 +21,12 @@ export async function loginUser(formData) {
     }
     const token = await createJWT(user);
     // console.log(token);
-    await setCookie("jwt_token", token, {maxAge: 2 * 60 * 60})
+    setCookie("jwt_token", token, {maxAge: 2 * 60 * 60})
     redirect("/")
 }
 
 export async function jwtTokenVerification() {
-    const token = await getCookie("jwt_token");
+    const token = getCookie("jwt_token");
     const tokenData = await verifyJWT(token);
     if (!tokenData) {
         await deleteCookie("jwt_token");

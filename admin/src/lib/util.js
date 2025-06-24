@@ -15,7 +15,6 @@ export async function createJWT(user) {
         })
         .setIssuedAt()
         .setExpirationTime("2h")
-        // .setExpirationTime("5s")
         .sign(new TextEncoder().encode(process.env.JWT_SECRET));
     return token;
 }
