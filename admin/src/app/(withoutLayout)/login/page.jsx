@@ -1,7 +1,7 @@
 import LoginScreen from "@/screens/login";
 import {createJWT, verifyJWT} from "@/lib/util";
 
-const LoginPage = async () => {
+const LoginPage = async ({searchParams}) => {
     // const token = await createJWT({
     //     userId: 1,
     //     userType: "SuperAdmin"
@@ -13,7 +13,7 @@ const LoginPage = async () => {
 
     return (
         <>
-            <LoginScreen/>
+            <LoginScreen searchParams={await searchParams}/>
         </>
     )
 }

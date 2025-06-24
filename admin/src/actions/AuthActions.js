@@ -15,9 +15,12 @@ export async function loginUser(formData) {
             userName: data.userName
         }
     })
+    if (!user) {
+        return redirect(`/login?errorMessage="Invalid credentials. Please try again."`);
+    }
     const isValidPassword = await bcrypt.compare(data.password, user?.password);
-    if (!user || !isValidPassword) {
-        return redirect(`/login?errorMessage="Invalid credentials. Please try again."}`);
+    if (!isValidPassword) {
+        return redirect(`/login?errorMessage="Invalid credentials. Please try again."`);
     }
     const token = await createJWT(user);
     // console.log(token);
