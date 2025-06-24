@@ -2,6 +2,12 @@
 
 import {Stripe} from "stripe";
 
+const SIZES = {
+    smallSize: "S",
+    mediumSize: "M",
+    largeSize: "L"
+}
+
 export async function createCheckoutSession(products, customerData) {
     console.log("Creating checkout session...");
     const stripeInstance = new Stripe(process.env.STRIPE_SECRET_KEY);
@@ -20,7 +26,7 @@ export async function createCheckoutSession(products, customerData) {
             price_data: {
                 currency: "usd",
                 product_data: {
-                    name: `${product.name} (Size: ${product.size})`,
+                    name: `${product.name} (Size: ${SIZES[product.size]})`,
                 },
                 unit_amount: parseInt(product.sellPrice) * 100,
             },
@@ -45,4 +51,10 @@ export async function createCheckoutSession(products, customerData) {
     return {
         clientSecret: checkoutSession.client_secret,
     }
+}
+
+export async function getCheckoutSession(session_id){
+    const stripeInstance = new Stripe(process.env.STRIPE_SECRET_KEY);
+    const session = await stripeInstance.checkout.sessions.retrieve(session_id);
+    return session;
 }
