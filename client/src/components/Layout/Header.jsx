@@ -5,6 +5,7 @@ import {useEffect, useRef, useState} from "react";
 import {Input} from "@/components/ui/Input";
 import {useRouter, useSearchParams} from "next/navigation";
 import {objectToQueryString} from "@/lib/util";
+import {useProductContext} from "@/components/Layout/ProductContext";
 
 const Header = () => {
     const searchParams = useSearchParams();
@@ -66,6 +67,9 @@ const Header = () => {
             document.removeEventListener("mousedown", handleClickOutside);
         }
     }, [dropdownOpen]);
+
+    const {cartItems} = useProductContext();
+
     return (
         <div className="navbar">
             <div className="container">
@@ -85,7 +89,7 @@ const Header = () => {
                             <Link href="/cart">
                                 <div className="relative">
                                     <div className="absolute -top-2 -right-2 w-5 rounded-full bg-red-500 text-white flex items-center justify-center text-xs font-semibold">
-                                        0
+                                        {cartItems.length}
                                     </div>
                                     <CartIcon className="w-7 h-7"/>
                                 </div>

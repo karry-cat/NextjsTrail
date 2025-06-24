@@ -1,10 +1,28 @@
+'use client'
 import Image from "next/Image"
 import {StarIcon} from "@/components/icons";
 import {Button} from "@/components/ui/Button";
 import Link from "next/link";
+import {useProductContext} from "@/components/Layout/ProductContext";
+import {cn} from "@/lib/util";
 
 const ProductCard = ({product}) => {
-    const BASE_URL= process.env.BASE_URL;
+    const BASE_URL = process.env.NEXT_PUBLIC_BASE_URL;
+
+    const {addProductToCart, removeProductFromCart, cartItems} = useProductContext();
+    const isProductInCart = cartItems.some((item) => item.id === product.id);
+    const handleCartItems = () => {
+        if (isProductInCart) {
+            removeProductFromCart(product.id);
+        } else {
+            addProductToCart({
+                ...product,
+                quantity: 1,
+                size: "smallSize"
+            });
+        }
+    }
+
     return (
         <div
             className="bg-white rounded-xl shadow-lg w-full h-full min-h-[624px]"
@@ -47,12 +65,15 @@ const ProductCard = ({product}) => {
                     </div>
                 </div>
                 <div className="flex gap-x-2">
-                    <Button className="w-full custom-outline-btn">Add to Cart</Button>
+                    <Button className={cn("w-full custom-outline-btn" , isProductInCart && "border-red-400 text-red-500")}
+                            onClick={handleCartItems}>
+                        {isProductInCart ? "Remove From Cart":"Add to Cart"}
+                    </Button>
                     <Button className="w-full">Buy Now</Button>
                 </div>
             </div>
         </div>
-)
+    )
 }
 
 export default ProductCard;

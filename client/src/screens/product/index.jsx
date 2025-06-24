@@ -1,16 +1,37 @@
+'use client'
+
 import Image from "next/Image"
 import {StarIcon} from "@/components/icons";
 import {Button} from "@/components/ui/Button";
+import {useProductContext} from "@/components/Layout/ProductContext";
+import {cn} from "@/lib/util";
+import {useState} from "react";
 
 export default function ProductScreen({product}) {
 
-    const BASE_URL = process.env.BASE_URL;
+    const BASE_URL = process.env.NEXT_PUBLIC_BASE_URL;
 
     const sizeOptions = [
         {label: "s", value: "smallSize"},
         {label: "M", value: "mediumSize"},
         {label: "L", value: "largeSize"}
     ]
+
+    const [selectedSize, setSelectedSize] = useState("smallSize");
+
+    const {addProductToCart, removeProductFromCart, cartItems} = useProductContext();
+    const isProductInCart = cartItems.some((item) => item.id === product.id);
+    const handleCartItems = () => {
+        if (isProductInCart) {
+            removeProductFromCart(product.id);
+        } else {
+            addProductToCart({
+                ...product,
+                quantity: 1,
+                size: selectedSize
+            });
+        }
+    }
 
     return (
         <div className="my-10 p-5 rounded-xl bg-white grid grid-cols-2 gap-5">
@@ -56,8 +77,11 @@ export default function ProductScreen({product}) {
                                     <input type="radio"
                                            id={`sizes-${size.value}`}
                                            name="sizes"
-                                           className="hidden peer"/>
-                                    <label htmlFor="sizes" className="checkbox-button-label">
+                                           className="hidden peer"
+                                           value={size.value}
+                                           checked={selectedSize === size.value}
+                                           onChange={()=>setSelectedSize(size.value)} />
+                                    <label htmlFor={`sizes-${size.value}`} className="checkbox-button-label">
                                         {size.label}
                                     </label>
                                 </div>
@@ -68,8 +92,9 @@ export default function ProductScreen({product}) {
                 <p className="text-lg font-semibold">Description</p>
                 <p className="text-gray-600">{product?.description}</p>
                 <div className="my-7 flex gap-x-5">
-                    <Button className="custom-outline-btn w-full">
-                        Add to Cart
+                    <Button className={cn("w-full custom-outline-btn" , isProductInCart && "border-red-400 text-red-500")}
+                            onClick={handleCartItems}>
+                        {isProductInCart ? "Remove From Cart":"Add to Cart"}
                     </Button>
                     <Button className="w-full">
                         Buy Now
