@@ -27,8 +27,8 @@ export default function CheckoutScreen({product}) {
         } else {
             fetchClientSecret();
         }
-    // }, []);
-    });
+    }, []);
+    // });
 
     return (
         <div>

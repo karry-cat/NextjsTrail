@@ -38,7 +38,7 @@ export async function POST(request) {
                 },
                 data: {
                     [product.size]: {decrement: product.quantity},
-                    currentProduct: {decrement: product.quantity}
+                    currentStock: {decrement: product.quantity}
                 }
             })
         }

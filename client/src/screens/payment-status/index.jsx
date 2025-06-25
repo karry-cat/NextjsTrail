@@ -6,6 +6,8 @@ import {SuccessIcon} from "@/components/icons";
 
 export default function PaymentStatusScreen({session}) {
 
+    console.log(JSON.stringify(session));
+
     return (
         <div>
             <div className="flex justify-center items-center">

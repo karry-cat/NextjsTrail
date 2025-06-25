@@ -78,7 +78,7 @@ const Header = () => {
     useEffect(() => {
         const fetchData = async () => {
             const res = await getCustomerData();
-            // console.log(res.data);
+            console.log(res.data);
             setCustomerData(res?.data)
         };
         fetchData();

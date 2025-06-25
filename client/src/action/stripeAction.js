@@ -10,6 +10,7 @@ const SIZES = {
 
 export async function createCheckoutSession(products, customerData) {
     console.log("Creating checkout session...");
+    console.log(customerData);
     const stripeInstance = new Stripe(process.env.STRIPE_SECRET_KEY);
     const checkoutSession = await stripeInstance.checkout.sessions.create({
         ui_mode: "embedded",
@@ -42,12 +43,12 @@ export async function createCheckoutSession(products, customerData) {
                     size: product.size,
                 }))
             ),
-            customerId: customerData?.customerId,
+            customerId: customerData?.id,
         },
         mode: "payment",
         return_url: `http://localhost:3000/payment-status?session_id={CHECKOUT_SESSION_ID}`
     })
-    // console.log(checkoutSession)
+    console.log(checkoutSession)
     return {
         clientSecret: checkoutSession.client_secret,
     }
