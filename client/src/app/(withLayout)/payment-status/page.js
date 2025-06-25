@@ -6,8 +6,8 @@ export default async function PaymentStatusPage({searchParams}) {
     const session = await getCheckoutSession(session_id)
     console.log(session)
     const updatedResObj = {
-        address: session?.shipping_details?.address?.line1,
-        city: session?.shipping_details?.address?.city,
+        address: session?.customer_details?.address?.line1,
+        city: session?.customer_details?.address?.city,
         customerId: session?.metadata?.customerId,
         customerEmail: session?.customer_email,
         SODateTime: session?.created,

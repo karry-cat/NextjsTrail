@@ -10,7 +10,8 @@ export default function Sidebar ({userData}) {
         {text:"Dashboard", url:"/", icon: <HomeIcon/>},
         {text:"Users", url:"/users", icon: <UsersIcon/>},
         {text:"Product Type", url:"/product-type", icon: <SwatchIcon/>},
-        {text:"Products", url:"/products", icon: <ShoppingBagIcon/>}
+        {text:"Products", url:"/products", icon: <ShoppingBagIcon/>},
+        {text:"Buyers", url:"/buyers", icon:<UsersIcon/>}
     ]
 
     return (
