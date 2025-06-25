@@ -1,4 +1,4 @@
-import {getCheckoutSession} from "@/action/stripeAction";
+import {getCheckoutSession, updateCheckoutData} from "@/action/stripeAction";
 import PaymentStatusScreen from "@/screens/payment-status";
 
 export default async function PaymentStatusPage({searchParams}) {
@@ -15,9 +15,11 @@ export default async function PaymentStatusPage({searchParams}) {
         paymentMode: session?.payment_method_types [0],
         products: JSON.parse(session?.metadata?.products),
     };
+
+    const response = await updateCheckoutData(updatedResObj);
     return (
         <>
-            <PaymentStatusScreen session={updatedResObj}/>
+            <PaymentStatusScreen status={response?.message}/>
         </>
     );
 }
