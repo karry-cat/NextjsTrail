@@ -9,7 +9,7 @@ import {loginUser} from "@/actions/AuthActions";
 const LoginScreen = ({searchParams}) => {
     const {errorMessage} = searchParams;
     return (
-        <div className="h-screen bg-gray-100 flex justify-center items-center">
+        <div className="h-screen bg-gradient-to-br from-slate-50 via-blue-50 to-indigo-100 flex justify-center items-center">
             <div className="w-full max-w-xl rounded-xl shadow-lg p-10 border border-gray-200 bg-white">
                 <h1 className="text-4xl font-medium text-center mb-7">Admin Login</h1>
                 {
