@@ -7,7 +7,7 @@ export async function setCookie(name, value, options = {}) {
         sameSite: "strict",
         path: "/",
         ...options
-    }
+    };
     (await cookies()).set(name, value, cookieOptions);
 }
 

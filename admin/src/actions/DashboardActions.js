@@ -9,6 +9,16 @@ export async function getDashboardData() {
             sales: true
         }
     });
+    const salesMasterData = await db.salesMaster.findMany({
+        take: 5,
+        include: {
+            buyer: true,
+            salesTransaction: true,
+        },
+        orderBy: {
+            SODateTime: "desc",
+        }
+    });
     const totalRevenue = await db.salesMaster.aggregate({
         _sum: {
             grandTotalPrice: true
@@ -19,6 +29,7 @@ export async function getDashboardData() {
         totalBuyers,
         totalCustomers: customerData.length,
         totalRevenue: totalRevenue._sum.grandTotalPrice,
+        orders: salesMasterData
     }
     return dashboardData;
 }
