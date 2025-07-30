@@ -23,7 +23,7 @@ export default function Sidebar ({userData}) {
                 {
                     menuItems.map((menuItem, key) => {
                         return (
-                            <li>
+                            <li key={key}>
                                 <Link href={menuItem.url}>
                                     <div className="sidebar-list-item">
                                         <span className="mx-2">{menuItem.icon}</span>
