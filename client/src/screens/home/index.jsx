@@ -14,7 +14,7 @@ const HomeScreen = ({searchParams, products, productTypes}) => {
                     <div className="col-span-3 grid grid-cols-2 gap-5">
                         {
                             products?.data.length > 0
-                                ? products.data?.map((item) => (<ProductCard product={item}/>))
+                                ? products.data?.map((item) => (<ProductCard product={item} key={item.id}/>))
                                 : (
                                     <div className="flex justify-center items-center col-span-2">
                                         <span className="text-xl font-medium">

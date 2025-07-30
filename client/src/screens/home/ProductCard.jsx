@@ -26,7 +26,6 @@ const ProductCard = ({product}) => {
     return (
         <div
             className="bg-white rounded-xl shadow-lg w-full h-full min-h-[624px]"
-            key={product?.id}
         >
             <Image
                 className="w-full h-full rounded-t-xl max-h-96 object-cover"
