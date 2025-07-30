@@ -46,4 +46,8 @@
         @apply text-gray-400 absolute top-2.5 right-2.5 bg-transparent rounded-lg text-base p-1.5
         ml-auto inline-flex items-center hover:bg-gray-200 hover:text-gray-900;
     }
+
+    .dashboard-card{
+        @apply border border-gray-200 rounded-xl shadow-md p-4 space-y-2;
+    }
 }

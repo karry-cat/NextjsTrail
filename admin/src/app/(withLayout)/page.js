@@ -1,7 +1,9 @@
-import Image from "next/image";
+import {getDashboardData} from "@/actions/DashboardActions";
+import DashboardScreen from "@/screens/dashboard/DashboardScreen";
 
-export default function Home() {
+export default async function Home() {
+  const dashboardData = await getDashboardData();
   return (
-      <h1>This is the Admin Section.</h1>
+      <DashboardScreen dashboardData={dashboardData} />
     );
 }
