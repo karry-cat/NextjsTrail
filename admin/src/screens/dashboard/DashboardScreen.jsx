@@ -10,6 +10,10 @@ export default function DashboardScreen({dashboardData}){
                     <h1 className="text-xl font-bold">Total Customer</h1>
                     <h1 className="text-3xl">{dashboardData?.totalCustomers}</h1>
                 </div>
+                <div className="dashboard-card">
+                    <h1 className="text-xl font-bold">Total Revenue</h1>
+                    <h1 className="text-3xl">${dashboardData?.totalRevenue}</h1>
+                </div>
             </div>
         </div>
     )
