@@ -1,4 +1,5 @@
 import RecentOrderSection from "@/screens/dashboard/RecentOrderSection";
+import CustomLineChart from "@/components/CustomLineChart";
 
 export default function DashboardScreen({dashboardData}){
     // console.log(dashboardData);
@@ -19,6 +20,11 @@ export default function DashboardScreen({dashboardData}){
                 </div>
             </div>
             <RecentOrderSection orders={dashboardData.orders}/>
+            <div className="w-full dashboard-card">
+                <div className="w-full h-[300px]">
+                    <CustomLineChart/>
+                </div>
+            </div>
         </div>
     )
 }
