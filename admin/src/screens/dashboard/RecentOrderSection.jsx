@@ -1,6 +1,12 @@
+'use client'
 import {formatDate} from "@/lib/util";
+import {Button} from "@/components/ui/Button";
+import {InformationIcon} from "@/components/icons";
+import {useState} from "react";
+import PurchasedProductsModal from "@/components/ui/PurchasedProductsModal";
 
 export default function RecentOrderSection({orders}) {
+    const [isProductModalOpen, setIsProductModalOpen] = useState(false);
     return (
         <>
             <div className="grid dashboard-card">
@@ -27,6 +33,13 @@ export default function RecentOrderSection({orders}) {
                                     <td>{formatDate(order.SODateTime)}</td>
                                     <td>{order.grandTotalPrice}</td>
                                     <td>{order.paymentMode}</td>
+                                    <td>
+                                        <Button type="button"
+                                                className="bg-transparent text-blue-700 p-0"
+                                                onClick={() => setIsProductModalOpen(true)}>
+                                            <InformationIcon/>
+                                        </Button>
+                                    </td>
                                 </tr>
                             )) : (<tr>
                                 <td colSpan={6} className="!text-center">
@@ -38,6 +51,11 @@ export default function RecentOrderSection({orders}) {
                     </tbody>
                 </table>
             </div>
+            {
+                isProductModalOpen && (
+                    <PurchasedProductsModal setIsOpen={setIsProductModalOpen}/>
+                )
+            }
         </>
     )
 }
