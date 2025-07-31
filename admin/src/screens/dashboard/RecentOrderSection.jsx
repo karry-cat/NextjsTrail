@@ -7,6 +7,7 @@ import PurchasedProductsModal from "@/components/ui/PurchasedProductsModal";
 
 export default function RecentOrderSection({orders}) {
     const [isProductModalOpen, setIsProductModalOpen] = useState(false);
+    const [selectedOrder, setSelectedOrder] = useState(null);
     return (
         <>
             <div className="grid dashboard-card">
@@ -36,7 +37,10 @@ export default function RecentOrderSection({orders}) {
                                     <td>
                                         <Button type="button"
                                                 className="bg-transparent text-blue-700 p-0"
-                                                onClick={() => setIsProductModalOpen(true)}>
+                                                onClick={() => {
+                                                    setIsProductModalOpen(true);
+                                                    setSelectedOrder(order);
+                                                }}>
                                             <InformationIcon/>
                                         </Button>
                                     </td>
@@ -53,7 +57,7 @@ export default function RecentOrderSection({orders}) {
             </div>
             {
                 isProductModalOpen && (
-                    <PurchasedProductsModal setIsOpen={setIsProductModalOpen}/>
+                    <PurchasedProductsModal setIsOpen={setIsProductModalOpen} products={selectedOrder?.salesTransaction} />
                 )
             }
         </>
