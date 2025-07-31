@@ -21,8 +21,9 @@ export default function DashboardScreen({dashboardData}){
             </div>
             <RecentOrderSection orders={dashboardData.orders}/>
             <div className="w-full dashboard-card">
-                <div className="w-full h-[300px]">
-                    <CustomLineChart/>
+                <h1 className="text-2xl font-bold">Sales</h1>
+                <div className="w-full h-[300px] text-blue-700">
+                    <CustomLineChart data={dashboardData?.salesChartData} yKey="sales"/>
                 </div>
             </div>
         </div>
