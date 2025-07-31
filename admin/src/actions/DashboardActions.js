@@ -19,6 +19,16 @@ export async function getDashboardData() {
             SODateTime: "desc",
         }
     });
+    //todo change it to postgre compatible
+    const salesByDate = await db.$queryRaw`
+        SELECT 
+            strftime('%m/%d/%Y', SODateTime / 1000, 'unixepoch') AS date,
+            SUM(grandTotalPrice) AS sales
+        FROM SalesMaster
+        GROUP BY date
+        ORDER BY date desc;
+    `;
+    // console.log(result);
     const totalRevenue = await db.salesMaster.aggregate({
         _sum: {
             grandTotalPrice: true
@@ -29,7 +39,9 @@ export async function getDashboardData() {
         totalBuyers,
         totalCustomers: customerData.length,
         totalRevenue: totalRevenue._sum.grandTotalPrice,
-        orders: salesMasterData
+        orders: salesMasterData,
+        salesChartData: salesByDate
+
     }
     return dashboardData;
 }
